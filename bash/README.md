@@ -24,7 +24,7 @@ Be prepared to enter the admin password.
 
 • Installs Homebrew
 
-• Launcehs MS Office Installer (if thumbdrive presetn)
+• Launches MS Office Installer (if thumbdrive is inserted)
 
 • Enables Firewall 
 
