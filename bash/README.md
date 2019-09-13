@@ -8,7 +8,13 @@ Either double click on the downloaded file or launch via Terminal:
 cd ~/Downloads/
 ```
 ```bash
+cd /Volumes/High\ Sierra\ Installer/_scripts/installer.command
+```
+```bash
 bash install.command
+```
+```bash
+bash /Volumes/High\ Sierra\ Installer/_scripts/installer.command
 ```
 Be prepared to enter the admin password.
 
