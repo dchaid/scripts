@@ -23,8 +23,6 @@ find . -name '*(J)*' | while read f; do mv "$f" "${f//\(J)/}"; done
 
 find . -name '*(EU)*' | while read f; do mv "$f" "${f//\(EU)/}"; done
 
-find . -name '*(\ .gb)*' | while read f; do mv "$f" "${f//\(.gb)/}"; done
-
 find . -type f | while read i; do mv "$i" "$(sed 's/ \.\([a-z0-9]*\)$/\.\1/' <<< "$i")"; done;
 
 exit 0
