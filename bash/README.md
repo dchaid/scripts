@@ -42,4 +42,4 @@ Be prepared to enter the admin password.
 
 
 ## Contributing
-Pull requests are welcome. Please make sure to update tests as appropriate.
+Pull requests are welcome. Please make sure to test any modifications. Thanks. 
