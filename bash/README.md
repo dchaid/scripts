@@ -5,7 +5,7 @@
 Either double click on the downloaded file or launch via Terminal:
 
 ```bash
-cd ~/downloaded_location/
+cd ~/Downloads/
 ```
 ```bash
 bash install.command
