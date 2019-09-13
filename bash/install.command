@@ -153,6 +153,9 @@ echo "STARTING MERAKI INSTALLER..."; sleep 1;
 open 'https://m.meraki.com/mdm/';
 echo '151-643-0130' | pbcopy;
 echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 10;
+
+#install meraki agent
+open /Volumes/High Sierra Installer/OSX Meraki Installer/MerakiPCCAgent.pkg;
 eval clear;
 
 #install brew dependencies
@@ -227,7 +230,7 @@ function RemoveDockIcon () {
 }
 IFS=$'\n'
 apps=()
-apps=($(dockutil --list | grep $remove | awk -F'file:' '{print $1}' | awk 'BEGIN{ RS = "" ; FS = "\n" }{print $0}'))
+apps=($(/usr/local/bin/dockutil --list | grep $remove | awk -F'file:' '{print $1}' | awk 'BEGIN{ RS = "" ; FS = "\n" }{print $0}'))
 
 if [ ! -n "$apps" ]; then
     for x in ${apps[@]}; do
@@ -237,7 +240,7 @@ if [ ! -n "$apps" ]; then
     done
     killall cfprefsd 2>&1;
     killall Dock 2>&1;
-fi
+fi;
 
 #add items to dock
 x="defaults write com.apple.dock persistent-apps -array-add "
