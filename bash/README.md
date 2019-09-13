@@ -16,6 +16,8 @@ Be prepared to enter the admin password.
 
 • Connects to KDIGuest
 
+• Prompts For New Hostname
+
 • Runs macOS Software Update in Background
 
 • Adds Lyell Admin Account
@@ -38,7 +40,7 @@ Be prepared to enter the admin password.
 
 • Installs Chrome, Firefox, Atom, Java, Slack, and Zoom
 
-• Automatically reboots after a minute when complete
+• Automatically Reboots After a Minute When Complete
 
 
 ## Contributing
