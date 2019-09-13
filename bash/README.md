@@ -1,42 +1,16 @@
-# bash and powershell scripts
+# How to use install.command
 
---------------------------------
+## Installation
 
-Various scripts for KDInfotech
+Either double click on the downloaded file or launch via Terminal:
 
-Created September 12, 2019
+```bash
+cd ~/downloaded_location/
+```
+```bash
+bash install.command
+```
+Be prepared to enter the admin password.
 
-For Internal Use Only
-
---------------------------------
-
-
-bash
---------------------------------
-
-auto-poweron.sh:    VMWare cron job script to automatically power on a VM during power loss
-
-install.command:    To be run on new Lyell MacBook setups. Simply double click the icon on the USB drive
-
-openall.sh:         Script created for Alfred hotkey
-
-killall.sh:         Script created for Alfred hotkey
-
-rename.sh:          Sets new hostname in macOS
-
-spinner.sh:         Spins the idle cursor icon
-
-test.sh:            Scratch code for local testing - never permanent 
-
-
-powershell
---------------------------------
-
-windows_install.ps1: Runs Chocolatey and removes bloatware from Windows
-
-getAdUserPath.ps1: Grabs the $HOME path of the user and outputs all to .csv
-
-
-
-If you have any questions hit me up on Slack or email me dchaid@kdinfotech.com
-
+## Contributing
+Pull requests are welcome. Please make sure to update tests as appropriate.
