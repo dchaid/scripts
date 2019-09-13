@@ -33,6 +33,7 @@ powershell
 --------------------------------
 
 windows_install.ps1: Runs Chocolatey and removes bloatware from Windows
+
 getAdUserPath.ps1: Grabs the $HOME path of the user and outputs all to .csv
 
 
