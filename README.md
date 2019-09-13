@@ -11,32 +11,33 @@ For Internal Use Only
 --------------------------------
 
 
-bash
+## bash
 --------------------------------
 
-auto-poweron.sh:    VMWare cron job script to automatically power on a VM during power loss
+• auto-poweron.sh:    VMWare cron job script to automatically power on a VM during power loss
 
-install.command:    To be run on new Lyell MacBook setups. Simply double click the icon on the USB drive
+• install.command:    To be run on new Lyell MacBook setups. Simply double click the icon on the USB drive
 
-openall.sh:         Script created for Alfred hotkey
+• openall.sh:         Script created for Alfred hotkey
 
-killall.sh:         Script created for Alfred hotkey
+• killall.sh:         Script created for Alfred hotkey
 
-rename.sh:          Sets new hostname in macOS
+• rename.sh:          Sets new hostname in macOS
 
-spinner.sh:         Spins the idle cursor icon
+• spinner.sh:         Spins the idle cursor icon
 
-test.sh:            Scratch code for local testing - never permanent 
+• test.sh:            Scratch code for local testing - never permanent 
 
 
-powershell
+## powershell
 --------------------------------
 
-windows_install.ps1: Runs Chocolatey and removes bloatware from Windows
+• windows_install.ps1: Runs Chocolatey and removes bloatware from Windows
 
-getAdUserPath.ps1: Grabs the $HOME path of the user and outputs all to .csv
+• getAdUserPath.ps1: Grabs the $HOME path of the user and outputs all to .csv
 
 
-
+## About
+--------------------------------
 If you have any questions hit me up on Slack or email me dchaid@kdinfotech.com
 
