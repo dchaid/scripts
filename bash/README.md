@@ -2,13 +2,10 @@
 
 ## Installation
 
-Either double click on the downloaded file or launch via Terminal:
+Launch via Terminal:
 
 ```bash
-cd ~/Downloads/
-```
-```bash
-bash install.command
+bash /Volumes/High\ Sierra\ Installer/_scripts/installer.command
 ```
 Be prepared to enter the admin password.
 
