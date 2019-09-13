@@ -1,3 +1,3 @@
 # bash
 
-various scripts for work
+various scripts for KDInfotech

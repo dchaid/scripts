@@ -5,6 +5,7 @@
 #Last Modified: September 12, 2019
 #Modified by: David Chaid
 #Modified for: Lyell — MacBook Provisioning
+#Available at https://github.com/dchaid/scripts/blob/master/install.command
 #Description: Connects to KDIGuest, adds admin account, installs hombrew, MS Office,enables firewall,
 #mods cursor rate, sophos, adds dock icons, runs macOS Software Update, adds meraki mdm. Automatically reboots.
 #*****************************************************************************************************************************
