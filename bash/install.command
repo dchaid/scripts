@@ -29,7 +29,6 @@ spin()
   done
 }
 
-
 #*****************************************************************************************************************************
 #script
 #*****************************************************************************************************************************
@@ -246,17 +245,19 @@ fi;
 x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
-eval "$x"$y\Google Chrome.app$z;
-eval "$x"$y\Safari.app$z;
-eval "$x"$y\Firefox.app$z;
-eval "$x"$y\Messages.app$z;
-eval "$x"$y\Slack.app$z;
-eval "$x"$y\Microsoft Outlook.app$z;
-eval "$x"$y\Microsoft Word.app$z;
-eval "$x"$y\Microsoft Excel.app$z;
-eval "$x"$y\App Store.app$z;
-eval "$x"$y\System Preferences.app$z;
-eval "$x"$y\zoom.us.app$z;
+f="$x"$y
+eval $f\Google Chrome.app$z;
+eval $f\Safari.app$z;
+eval $f\Firefox.app$z;
+eval $f\Messages.app$z;
+eval $f\Slack.app$z;
+eval $f\Microsoft Outlook.app$z;
+eval $f\Microsoft Word.app$z;
+eval $f\Microsoft Excel.app$z;
+eval $f\App Store.app$z;
+eval $f\System Preferences.app$z;
+eval $f\zoom.us.app$z;
+echo "DOCK ICON REORGANIZATION COMPLETE..."
 killall Dock; sleep 1;
 eval clear;
 
