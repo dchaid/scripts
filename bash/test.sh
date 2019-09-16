@@ -1,29 +1,27 @@
-#add items to dock
-echo "ADDING DOCK ICONS..."; sleep 1; 
-x="defaults write com.apple.dock persistent-apps -array-add "
-y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
-z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
-f="$x"$y
+#!/bin/bash
+#*****************************************************************************************************************************
+#cursor spin
+spin()
+{
+  spinner="/|\\—/|\\—"
+  while :
+  do
+    for i in `seq 0 7`
+    do
+      echo -n "${spinner:$i:1}"
+      echo -en "\010"
+      sleep .05
+    done
+  done
+}
 
-apps=(
-    "Google Chrome.app"
-    "Safari.app"
-    "Firefox.app"
-    "Messages.app"
-    "Slack.app"
-    "Microsoft Outlook.app"
-    "Microsoft Word.app"
-    "Microsoft Excel.app"
-    "App Store.app"
-    "System Preferences.app"
-    "zoom.us.app"
-)
+# Start the Spinner + Make a note of its Process ID (PID)
+spin &
+SPIN_PID=$!
+trap "kill -9 $SPIN_PID" `seq 0 15`
 
-for app in "${apps[@]}"
-do
-    eval $f\$app$z;
-done
+echo "STARTING INSTALLATION..."; sleep 1;
 
-echo "DOCK ICON REORGANIZATION COMPLETE...";
-killall Dock; sleep 1;
-eval clear;
+eval ping www.google.com
+
+exit 0
