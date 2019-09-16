@@ -222,6 +222,7 @@ eval clear;
 
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS..."; sleep 1; 
+eval killall cfprefsd;
 /usr/local/bin/dockutil --remove all; sleep 3;
 
 #add items to dock
@@ -249,6 +250,7 @@ for app in "${apps[@]}"
 do
     eval $f\$app$z;
 done
+
 echo "DOCK ICON REORGANIZATION COMPLETE..."
 killall Dock; sleep 1;
 eval clear;
