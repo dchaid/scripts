@@ -222,41 +222,33 @@ eval clear;
 
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS..."; sleep 1; 
-remove="a"
-
-function RemoveDockIcon () {
-/usr/local/bin/dockutil --remove "$1" --no-restart --allhomes
-}
-IFS=$'\n'
-apps=()
-apps=($(/usr/local/bin/dockutil --list | grep $remove | awk -F'file:' '{print $1}' | awk 'BEGIN{ RS = "" ; FS = "\n" }{print $0}'))
-
-if [ ! -n "$apps" ]; then
-    for x in ${apps[@]}; do
-        x="$(echo -e "$x" | sed -e 's/[[:space:]]*$//')"
-        echo "Removing $x from the Dock";
-        RemoveDockIcon "$x";
-    done
-    killall cfprefsd 2>&1;
-    killall Dock 2>&1;
-fi;
+/usr/local/bin/dockutil --remove all; sleep 3;
 
 #add items to dock
+echo "ADDING DOCK ICONS..."; sleep 1; 
 x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
 f="$x"$y
-eval $f\Google Chrome.app$z;
-eval $f\Safari.app$z;
-eval $f\Firefox.app$z;
-eval $f\Messages.app$z;
-eval $f\Slack.app$z;
-eval $f\Microsoft Outlook.app$z;
-eval $f\Microsoft Word.app$z;
-eval $f\Microsoft Excel.app$z;
-eval $f\App Store.app$z;
-eval $f\System Preferences.app$z;
-eval $f\zoom.us.app$z;
+
+apps=(
+    Google\ Chrome.app
+    Safari.app 
+    Firefox.app 
+    Messages.app 
+    Slack.app 
+    Microsoft\ Outlook.app
+    Microsoft\ Word.app
+    Microsoft\ Excel.app
+    App\ Store.app
+    System\ Preferences.app
+    zoom.us.app
+)
+
+for app in "${apps[@]}"
+do
+    eval $f\$app$z;
+done
 echo "DOCK ICON REORGANIZATION COMPLETE..."
 killall Dock; sleep 1;
 eval clear;

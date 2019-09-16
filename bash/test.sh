@@ -1,11 +1,30 @@
 #!/bin/bash
-printf "\033[48;5;5m"  # or "\033[46m" background
-printf "\033[H\033[2J" # your system's clear command does something similar
-printf "\u001b[43m" # or "\033[96m" text
-echo Hello World;
-echo;
+#add items to dock
+x="defaults write com.apple.dock persistent-apps -array-add "
+y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
+z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
+f="$x"$y
 
-echo;
-eval ping www.google.com
+apps=(
+    Google\ Chrome.app
+    Safari.app 
+    Firefox.app 
+    Messages.app 
+    Slack.app 
+    Microsoft\ Outlook.app
+    Microsoft\ Word.app
+    Microsoft\ Excel.app
+    App\ Store.app
+    System\ Preferences.app
+    zoom.us.app
+)
+for app in "${apps[@]}"
+do
+    eval $f\$app$z;
+done
+echo "DOCK ICON REORGANIZATION COMPLETE..."
+killall Dock; sleep 1;
+
+#eval clear;
 
 exit 0
