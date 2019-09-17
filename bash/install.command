@@ -251,7 +251,7 @@ do
 done
 
 echo "DOCK ICON REORGANIZATION COMPLETE...";
-killall Dock; sleep 1;
+eval killall Dock; sleep 1;
 eval clear;
 
 #kill spinner
