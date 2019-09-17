@@ -44,7 +44,7 @@ trap "kill -9 $SPIN_PID" `seq 0 15`
 
 echo "STARTING INSTALLATION..."; sleep 1;
 
-#connect to KDIGuest network
+#connect to Ionpath-guest network
 echo "CONNECTING TO IONPATH-GUEST..."; sleep 1;
 host="www.apple.com"
 ping -c1 "$host" &> /dev/null
@@ -140,7 +140,7 @@ echo "ENABLING FIREWALL..."; sleep 1;
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
 
 #install brew dependencies
-brew='/usr/local/bin/brew'
+brew="/usr/local/bin/brew"
 echo "STARTING HOMEBREW INSTALLATIONS..."; sleep 2;
 $brew install ack;
 #$brew install axel;

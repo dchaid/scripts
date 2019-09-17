@@ -157,7 +157,7 @@ open /Volumes/High Sierra Installer/OSX Meraki Installer/MerakiPCCAgent.pkg;
 eval clear;
 
 #install brew dependencies
-brew='/usr/local/bin/brew'
+brew="/usr/local/bin/brew"
 echo "STARTING HOMEBREW INSTALLATIONS..."; sleep 2;
 $brew install ack;
 #$brew install axel;
