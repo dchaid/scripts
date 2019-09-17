@@ -214,6 +214,7 @@ y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString<
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
 f="$x"$y
 
+#app list array -- freely add more in double-quotes or rearrange
 apps=(
     "Google Chrome.app"
     "Safari.app"
