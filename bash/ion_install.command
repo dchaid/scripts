@@ -1,13 +1,14 @@
 #!/bin/bash
 #*****************************************************************************************************************************
 #Created by: David Chaid - KDInfotech
-#Creation date: Aug. 21, 2019
-#Last Modified: September 16, 2019
+#Creation date: September 17, 2019
+#Last Modified: September 17, 2019
+#Based on Lyell — MacBook Provisioning install.command 
 #Modified by: David Chaid
-#Modified for: Lyell — MacBook Provisioning
-#Updates Available at: https://github.com/dchaid/scripts/blob/master/install.command
-#Description: Connects to KDIGuest, adds admin account, installs hombrew, MS Office,enables firewall,
-#mods cursor rate, sophos, adds dock icons, runs macOS Software Update, adds meraki mdm. Automatically reboots.
+#Modified for: IONPath 
+#Updates Available at: https://github.com/dchaid/scripts/
+#Description: Connects to Ionpath-guest, adds admin account, installs hombrew,enables firewall,
+#mods cursor rate, adds dock icons, runs macOS Software Update, Automatically reboots.
 #*****************************************************************************************************************************
 
 #*****************************************************************************************************************************
@@ -44,7 +45,7 @@ trap "kill -9 $SPIN_PID" `seq 0 15`
 echo "STARTING INSTALLATION..."; sleep 1;
 
 #connect to KDIGuest network
-echo "CONNECTING TO KDIGUEST..."; sleep 1;
+echo "CONNECTING TO IONPATH-GUEST..."; sleep 1;
 host="www.apple.com"
 ping -c1 "$host" &> /dev/null
 
@@ -52,7 +53,7 @@ if [ $? -eq 0 ]; then
     echo "ALREADY CONNECTED TO THE INTERNET..."; sleep 1
 else
     echo "CONNECTING..." ; sleep 1;
-    sudo networksetup -setairportnetwork en0 "KDI Guest" wifi4KDI! ;
+    sudo networksetup -setairportnetwork en0 "Ionpath-guest" ionpath960 ;
     echo "CONNECTION SUCCESSFUL..."; sleep 1;
 fi
 sleep 5; 
@@ -61,7 +62,7 @@ sleep 5;
 sudo softwareupdate -i -a >/dev/null 2>&1 &
 
 #hostname rename prompt
-echo "PLEASE ENTER NEW HOSTNAME....LYMAC1XX..."; sleep 2;
+echo "PLEASE ENTER NEW HOSTNAME....IONMACXX..."; sleep 2;
 
 function machinename() {
     osascript <<EOT
@@ -91,21 +92,21 @@ echo "CREATING ADMIN ACCOUNT..."; sleep 1;
 LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
 NextID=$((LastID + 1))
 
-if [[ $(dscl . list /Users) =~ "lyelladmin" ]]; then
+if [[ $(dscl . list /Users) =~ "ion.admin" ]]; then
     echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; sleep 1; 
 else
     . /etc/rc.common
-    sudo dscl . create /Users/lyelladmin
-    sudo dscl . create /Users/lyelladmin RealName "Lyell Admin"
-    sudo dscl . create /Users/lyelladmin hint ""
-    sudo dscl . create /Users/lyelladmin picture "/Library/User Pictures/Nature/Earth.png"
-    sudo dscl . passwd /Users/lyelladmin 2wsx^YHN
-    sudo dscl . create /Users/lyelladmin UniqueID $NextID
-    sudo dscl . create /Users/lyelladmin PrimaryGroupID 80
-    sudo dscl . create /Users/lyelladmin UserShell /bin/bash
-    sudo dscl . create /Users/lyelladmin NFSHomeDirectory /Users/lyelladmin
-    sudo cp -R /System/Library/User\ Template/English.lproj /Users/lyelladmin
-    sudo chown -R lyelladmin:staff /Users/lyelladmin
+    sudo dscl . create /Users/ion.admin
+    sudo dscl . create /Users/ion.admin RealName "ION Admin"
+    sudo dscl . create /Users/ion.admin hint ""
+    sudo dscl . create /Users/ion.admin picture "/Library/User Pictures/Nature/Earth.png"
+    sudo dscl . passwd /Users/ion.admin changethis
+    sudo dscl . create /Users/ion.admin UniqueID $NextID
+    sudo dscl . create /Users/ion.admin PrimaryGroupID 80
+    sudo dscl . create /Users/ion.admin UserShell /bin/bash
+    sudo dscl . create /Users/ion.admin NFSHomeDirectory /Users/ion.admin
+    sudo cp -R /System/Library/User\ Template/English.lproj /Users/ion.admin
+    sudo chown -R ion.admin:staff /Users/ion.admin
 
     echo "ADMIN ACCOUNT CREATED..."; sleep 2;
 fi
@@ -127,10 +128,6 @@ fi
 sleep 2;
 eval clear;
 
-#install ms office (launch installer)
-echo "STARTING MS OFFICE INSTALLER..."; sleep 1;
-open /Volumes/High\ Sierra\ Installer/Lyell/Microsoft_Office.pkg;
-
 #set key repeat rate and cursor blink
 echo "MODIFYING CURSOR REPEAT RATE..."; sleep 1;
 defaults write -g NSTextInsertionPointBlinkPeriodOn -float 200;
@@ -141,20 +138,6 @@ defaults write -g KeyRepeat -int 2;
 #enable firewall
 echo "ENABLING FIREWALL..."; sleep 1;
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
-
-#install sophos (launch installer)
-echo "LAUNCHING SOPHOS INSTALLER..."; sleep 1
-open /Volumes/High\ Sierra\ Installer/Lyell/Sophos/Sophos\ Installer.app;
-
-#install meraki mdm
-echo "STARTING MERAKI INSTALLER..."; sleep 1;
-open 'https://m.meraki.com/mdm/';
-echo '151-643-0130' | pbcopy;
-echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 10;
-
-#install meraki agent
-open /Volumes/High Sierra Installer/OSX Meraki Installer/MerakiPCCAgent.pkg;
-eval clear;
 
 #install brew dependencies
 brew='/usr/local/bin/brew'
@@ -208,7 +191,7 @@ $brew cask install google-chrome;
 $brew cask install java;
 #$brew cask opera;
 #$brew cask skype;
-$brew cask install slack;
+#$brew cask install slack;
 #$brew cask spotify;
 #$brew cask sublime-text;
 #$brew cask steam;
@@ -236,10 +219,6 @@ apps=(
     "Safari.app"
     "Firefox.app"
     "Messages.app"
-    "Slack.app"
-    "Microsoft Outlook.app"
-    "Microsoft Word.app"
-    "Microsoft Excel.app"
     "App Store.app"
     "System Preferences.app"
     "zoom.us.app"
