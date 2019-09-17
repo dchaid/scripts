@@ -92,21 +92,21 @@ echo "CREATING ADMIN ACCOUNT..."; sleep 1;
 LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
 NextID=$((LastID + 1))
 
-if [[ $(dscl . list /Users) =~ "ion.admin" ]]; then
+if [[ $(dscl . list /Users) =~ "admin.ion" ]]; then
     echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; sleep 1; 
 else
     . /etc/rc.common
-    sudo dscl . create /Users/ion.admin
-    sudo dscl . create /Users/ion.admin RealName "ION Admin"
-    sudo dscl . create /Users/ion.admin hint ""
-    sudo dscl . create /Users/ion.admin picture "/Library/User Pictures/Nature/Earth.png"
-    sudo dscl . passwd /Users/ion.admin changethis
-    sudo dscl . create /Users/ion.admin UniqueID $NextID
-    sudo dscl . create /Users/ion.admin PrimaryGroupID 80
-    sudo dscl . create /Users/ion.admin UserShell /bin/bash
-    sudo dscl . create /Users/ion.admin NFSHomeDirectory /Users/ion.admin
-    sudo cp -R /System/Library/User\ Template/English.lproj /Users/ion.admin
-    sudo chown -R ion.admin:staff /Users/ion.admin
+    sudo dscl . create /Users/admin.ion
+    sudo dscl . create /Users/admin.ion RealName "ION Admin"
+    sudo dscl . create /Users/admin.ion hint ""
+    sudo dscl . create /Users/admin.ion picture "/Library/User Pictures/Nature/Earth.png"
+    sudo dscl . passwd /Users/admin.ion changethis
+    sudo dscl . create /Users/admin.ion UniqueID $NextID
+    sudo dscl . create /Users/admin.ion PrimaryGroupID 80
+    sudo dscl . create /Users/admin.ion UserShell /bin/bash
+    sudo dscl . create /Users/admin.ion NFSHomeDirectory /Users/admin.ion
+    sudo cp -R /System/Library/User\ Template/English.lproj /Users/admin.ion
+    sudo chown -R admin.ion:staff /Users/admin.ion
 
     echo "ADMIN ACCOUNT CREATED..."; sleep 2;
 fi
@@ -239,6 +239,6 @@ kill -9 $SPIN_PID;
 #superuser reboot if required
 sudo -v;
 eval clear;
-/usr/local/bin/cowsay "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 60 SECONDS..."; sleep 60;
+/usr/local/bin/cowsay "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 4 MINUTES..."; sleep 240;
 sudo reboot
 exit 0
