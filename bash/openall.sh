@@ -19,7 +19,7 @@ open Spotify.app ;
 open Firefox\ Developer\ Edition.app/ ;
 open Tweetbot.app ;
 open Airmail\ 3.app/ ;
-open 1Password\ 7.app &&
+open 1Password\ 7.app ;
 open Messages.app ;
 open Visual\ Studio\ Code.app/ ;
 open iTerm.app ;
