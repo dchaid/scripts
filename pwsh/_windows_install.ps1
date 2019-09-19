@@ -6,11 +6,23 @@
 
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-choco install googlechrome -y
-choco install zoom -y
-choco install slack -y
+choco install 7zip.install -y
+choco install atom -y
+choco install ccleaner -y
+choco install chocolatey-core.extension -y
 choco install firefox -y
-
+choco install flashplayeractivex -y
+choco install flashplayerplugin -y
+choco install foxitreader -y
+choco install googlechrome -y
+choco install javaruntime -y
+choco install jre8 -y
+choco install notepadplusplus.install -y
+choco install putty.install -y
+choco install silverlight -y
+choco install slack -y
+choco install vlc -y
+choco install zoom -y
 
 Get-AppxPackage -name "Microsoft.ZuneMusic" | Remove-AppxPackage 
 Get-AppxPackage -name "Microsoft.Music.Preview" | Remove-AppxPackage
