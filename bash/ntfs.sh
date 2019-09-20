@@ -32,7 +32,7 @@ trap "kill -9 $SPIN_PID" `seq 0 15`
 echo "STARTING COPY - PRESS CTRL + C TO QUIT"; sleep 5;
 rsync --update -rtzv --progress /Volumes/C /Volumes/tpupach/cdrive/ ;
 date -u;
-echo "C-DRIVE SEGMENT COMPLETE";
+echo "C-DRIVE SEGMENT COMPLETE"; sleep 1;
 
 rsync --update -rtzv --progress /Volumes/D /Volumes/tpupach/ddrive/ ;
 
@@ -42,8 +42,8 @@ eval clear;
 kill -9 $SPIN_PID;
 
 date -u;
-echo "D-DRIVE SEGMENT COMPLETE";
+echo "D-DRIVE SEGMENT COMPLETE"; sleep 1;
 
-echo "RSYNC COPY COMPLETED";
+echo "RSYNC COPY COMPLETED"; sleep 1;
 
 exit 0
