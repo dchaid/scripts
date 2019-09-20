@@ -32,6 +32,9 @@ spin()
 #script
 #*****************************************************************************************************************************
 
+#Resize terminal window
+printf '\e[8;65;170t'
+
 #user to enter sudo password to start
 echo "PLEASE ENTER ADMIN PASSWORD TO EXECUTE SCRIPT...";
 sudo -v
