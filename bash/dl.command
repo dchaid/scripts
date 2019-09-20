@@ -11,6 +11,7 @@ curl -sS https://raw.githubusercontent.com/dchaid/scripts/master/bash/dock.comma
 chmod a+x install.command ; 
 chmod a+x dock.command ;
 
+open install.command;
 
 exit 0
 
