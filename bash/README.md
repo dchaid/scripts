@@ -41,4 +41,4 @@ Be prepared to enter the admin password.
 
 
 ## Contributing
-Pull requests are welcome. Please make sure to test any modifications. Thanks. 
+Fork and go nuts. 
