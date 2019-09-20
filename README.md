@@ -22,6 +22,8 @@ For Internal Use Only
 
 • killall.sh:         Script created for Alfred hotkey
 
+• ntfs.sh             rsync copy + delta update
+
 • rename.sh:          Sets new hostname in macOS
 
 • spinner.sh:         Spins the idle cursor icon
