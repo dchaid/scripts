@@ -1,16 +1,5 @@
 # bash and powershell scripts
 
---------------------------------
-
-Various scripts for KDInfotech
-
-Created September 12, 2019
-
-For Internal Use Only
-
---------------------------------
-
-
 ## bash
 --------------------------------
 
@@ -30,7 +19,6 @@ For Internal Use Only
 
 • test.sh:            Scratch code for local testing - never permanent 
 
-
 ## powershell
 --------------------------------
 
@@ -38,8 +26,7 @@ For Internal Use Only
 
 • getAdUserPath.ps1: Grabs the $HOME path of the user and outputs all to .csv
 
-
 ## About
 --------------------------------
-If you have any questions hit me up on Slack or email me dchaid@kdinfotech.com
+If you have any questions hit me up on Slack or email me dchaid at gmail
 
