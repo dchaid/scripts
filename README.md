@@ -28,5 +28,5 @@
 
 ## About
 --------------------------------
-If you have any questions hit me up on Slack or email me dchaid at gmail
+If you have any questions hit me up on Slack or email me at my_git_username at gmail
 
