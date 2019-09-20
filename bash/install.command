@@ -222,7 +222,7 @@ eval clear;
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS..."; sleep 1; 
 eval killall cfprefsd;
-/usr/local/bin/dockutil --remove all; sleep 3;
+sudo /usr/local/bin/dockutil --remove all; sleep 1;
 
 #add items to dock
 echo "ADDING DOCK ICONS..."; sleep 1; 
