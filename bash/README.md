@@ -5,7 +5,7 @@
 Launch via Terminal:
 
 ```bash
-bash /Volumes/High\ Sierra\ Installer/_scripts/installer.command
+bash /Volumes/High\ Sierra\ Installer/_scripts/install.command
 ```
 Be prepared to enter the admin password.
 
@@ -41,4 +41,4 @@ Be prepared to enter the admin password.
 
 
 ## Contributing
-Pull requests are welcome. Please make sure to test any modifications. Thanks. 
+Fork and go nuts. 
