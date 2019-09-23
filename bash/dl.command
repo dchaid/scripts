@@ -61,7 +61,7 @@ echo "      ................           ....   ...                               
 echo "      ......... ....            .....   ....      ..                      ."
 echo "         ..........     ..... .......   ....      ..                      '"
 echo; echo; echo;
-echo "                                                                             TIME TO STEAM SOME HAMS..."
+echo "                                                                           TIME TO STEAM SOME HAMS..."
 echo; echo; echo; sleep 2;
 
 osascript -e 'tell app "Terminal"
