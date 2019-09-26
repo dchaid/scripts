@@ -19,5 +19,5 @@ function renameComputer(){
 }
 
 #---rename script
-ComputerName=$(machinename) 
+ComputerName=$(machinename)
 renameComputer;

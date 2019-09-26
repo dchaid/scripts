@@ -23,7 +23,7 @@ Be prepared to enter the admin password.
 
 • Launches MS Office Installer (if thumbdrive is inserted)
 
-• Enables Firewall 
+• Enables Firewall
 
 • Modfies cursor rate and blink rate
 
@@ -31,7 +31,7 @@ Be prepared to enter the admin password.
 
 • Removes Unecesary Dock Icons
 
-• Adds Appropriate Dock icons 
+• Adds Appropriate Dock icons
 
 • Opens Meraki MDM Page and copies key to clipboard
 
@@ -41,4 +41,4 @@ Be prepared to enter the admin password.
 
 
 ## Contributing
-Fork and go nuts. 
+Fork and go nuts.
