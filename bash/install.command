@@ -47,18 +47,20 @@ trap "kill -9 $SPIN_PID" `seq 0 15`
 echo "STARTING INSTALLATION..."; sleep 1;
 
 #connect to KDIGuest network
-echo "CONNECTING TO KDIGUEST..."; sleep 1;
-host="www.apple.com"
-ping -c1 "$host" &> /dev/null
 
-if [ $? -eq 0 ]; then
-    echo "ALREADY CONNECTED TO THE INTERNET..."; sleep 1
-else
-    echo "CONNECTING..." ; sleep 1;
-    sudo networksetup -setairportnetwork en0 "KDI Guest" wifi4KDI! ;
-    echo "CONNECTION SUCCESSFUL..."; sleep 1;
-fi
-sleep 5; 
+#---commenting out unless needed
+#---echo "CONNECTING TO NETWORK..."; sleep 1;
+#---host="www.apple.com"
+#---ping -c1 "$host" &> /dev/null
+#---
+#---if [ $? -eq 0 ]; then
+#---    echo "ALREADY CONNECTED TO THE INTERNET..."; sleep 1
+#---else
+#---    echo "CONNECTING..." ; sleep 1;
+#---    sudo networksetup -setairportnetwork en0 "NETWORK NAME" PASSWORD ;
+#---    echo "CONNECTION SUCCESSFUL..."; sleep 1;
+#---fi
+#---sleep 5; 
 
 #silently check for macOS software updates — runs in background...
 sudo softwareupdate -i -a >/dev/null 2>&1 &
