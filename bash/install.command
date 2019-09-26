@@ -6,7 +6,7 @@
 #Modified by: David Chaid
 #Modified for: Lyell — MacBook Provisioning
 #Updates Available at: https://github.com/dchaid/scripts/blob/master/install.command
-#Description: Connects to KDIGuest, adds admin account, installs hombrew, MS Office,enables firewall,
+#Description: Connects to KDIGuest, adds admin account, installs homebrew, MS Office,enables firewall,
 #mods cursor rate, sophos, adds dock icons, runs macOS Software Update, adds meraki mdm. Automatically reboots.
 #*****************************************************************************************************************************
 
@@ -158,7 +158,7 @@ echo '151-643-0130' | pbcopy;
 echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 10;
 
 #install meraki agent
-open /Volumes/High Sierra Installer/OSX Meraki Installer/MerakiPCCAgent.pkg;
+open /Volumes/High\ Sierra\ Installer/OSX\ Meraki\ Installer/MerakiPCCAgent.pkg;
 eval clear;
 
 #install brew dependencies
@@ -266,6 +266,7 @@ kill -9 $SPIN_PID;
 #superuser reboot if required
 sudo -v;
 eval clear;
-/usr/local/bin/cowsay "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 60 SECONDS..."; sleep 60;
+cowsay="/usr/local/bin/cowsay"
+cowsay "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 60 SECONDS..."; sleep 60;
 sudo reboot
 exit 0
