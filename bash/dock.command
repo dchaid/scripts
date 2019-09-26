@@ -32,12 +32,12 @@ spin &
 SPIN_PID=$!
 trap "kill -9 $SPIN_PID" `seq 0 15`
 
-echo "REMOVING DOCK ICONS..."; sleep 1; 
+echo "REMOVING DOCK ICONS..."; sleep 1;
 eval killall cfprefsd;
 sudo /usr/local/bin/dockutil --remove all; sleep 1;
 
 #add items to dock
-echo "ADDING DOCK ICONS..."; sleep 1; 
+echo "ADDING DOCK ICONS..."; sleep 1;
 x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'

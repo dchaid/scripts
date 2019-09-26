@@ -3,9 +3,9 @@
 #Created by: David Chaid - KDInfotech
 #Creation date: September 17, 2019
 #Last Modified: September 17, 2019
-#Based on Lyell — MacBook Provisioning install.command 
+#Based on Lyell — MacBook Provisioning install.command
 #Modified by: David Chaid
-#Modified for: IONPath 
+#Modified for: IONPath
 #Updates Available at: https://github.com/dchaid/scripts/
 #Description: Connects to Ionpath-guest, adds admin account, installs hombrew,enables firewall,
 #mods cursor rate, adds dock icons, runs macOS Software Update, Automatically reboots.
@@ -56,7 +56,7 @@ else
     sudo networksetup -setairportnetwork en0 "Ionpath-guest" ionpath960 ;
     echo "CONNECTION SUCCESSFUL..."; sleep 1;
 fi
-sleep 5; 
+sleep 5;
 
 #silently check for macOS software updates — runs in background...
 sudo softwareupdate -i -a >/dev/null 2>&1 &
@@ -93,7 +93,7 @@ LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
 NextID=$((LastID + 1))
 
 if [[ $(dscl . list /Users) =~ "admin.ion" ]]; then
-    echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; sleep 1; 
+    echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; sleep 1;
 else
     . /etc/rc.common
     sudo dscl . create /Users/admin.ion
@@ -203,12 +203,12 @@ sleep 2;
 eval clear;
 
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
-echo "REMOVING DOCK ICONS..."; sleep 1; 
+echo "REMOVING DOCK ICONS..."; sleep 1;
 eval killall cfprefsd;
 /usr/local/bin/dockutil --remove all; sleep 3;
 
 #add items to dock
-echo "ADDING DOCK ICONS..."; sleep 1; 
+echo "ADDING DOCK ICONS..."; sleep 1;
 x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'

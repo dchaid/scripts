@@ -33,7 +33,7 @@ spin()
 #*****************************************************************************************************************************
 
 #Resize terminal window
-printf '\e[8;65;170t' 
+printf '\e[8;65;170t'
 
 #user to enter sudo password to start
 echo "PLEASE ENTER ADMIN PASSWORD TO EXECUTE SCRIPT...";
@@ -60,7 +60,7 @@ echo "STARTING INSTALLATION..."; sleep 1;
 #---    sudo networksetup -setairportnetwork en0 "NETWORK NAME" PASSWORD ;
 #---    echo "CONNECTION SUCCESSFUL..."; sleep 1;
 #---fi
-#---sleep 5; 
+#---sleep 5;
 
 #silently check for macOS software updates — runs in background...
 sudo softwareupdate -i -a >/dev/null 2>&1 &
@@ -97,7 +97,7 @@ LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
 NextID=$((LastID + 1))
 
 if [[ $(dscl . list /Users) =~ "lyelladmin" ]]; then
-    echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; sleep 1; 
+    echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; sleep 1;
 else
     . /etc/rc.common
     sudo dscl . create /Users/lyelladmin
@@ -225,12 +225,12 @@ sleep 2;
 eval clear;
 
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
-echo "REMOVING DOCK ICONS..."; sleep 1; 
+echo "REMOVING DOCK ICONS..."; sleep 1;
 eval killall cfprefsd;
 sudo /usr/local/bin/dockutil --remove all; sleep 1;
 
 #add items to dock
-echo "ADDING DOCK ICONS..."; sleep 1; 
+echo "ADDING DOCK ICONS..."; sleep 1;
 x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
