@@ -196,7 +196,7 @@ $brew install dockutil;
 #$brew install ruby;
 #$brew install speedtest_cli;
 #$brew install tmux;
-#$brew install tree;
+$brew install tree;
 #$brew install unrar;
 #$brew install vimpager;
 #$brew install watch
@@ -205,6 +205,7 @@ $brew install dockutil;
 #install brew casks
 #$brew cask aerial;
 $brew cask install atom;
+$brew cask install box;
 #$brew cask caffeine;
 $brew cask install firefox;
 $brew cask install google-chrome;
@@ -260,6 +261,10 @@ echo "DOCK ICON REORGANIZATION COMPLETE...";
 eval killall Dock; sleep 1;
 eval clear;
 
+osascript -e 'tell app "Terminal"
+    do script "bash ~/Desktop/Install/dock.command"
+end tell'
+
 #kill spinner
 kill -9 $SPIN_PID;
 
@@ -267,6 +272,7 @@ kill -9 $SPIN_PID;
 sudo -v;
 eval clear;
 cowsay="/usr/local/bin/cowsay"
-cowsay "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 60 SECONDS..."; sleep 60;
+cowsay "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 120 SECONDS..."; sleep 130;
+
 sudo reboot
 exit 0
