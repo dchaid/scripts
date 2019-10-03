@@ -132,14 +132,17 @@ fi
 sleep 2;
 eval clear;
 
-#install ms office (launch installer)
+#install ms office (launch installer); box tools installer; zerox installer
 echo "STARTING MS OFFICE INSTALLER..."; sleep 1;
 open /Volumes/High\ Sierra\ Installer/Lyell/Microsoft_Office.pkg;
 sleep 10;
 
-#install ms office (launch installer)
 echo "STARTING BOX TOOLS INSTALLER..."; sleep 1;
 open /Volumes/High Sierra Installer/INSTALLS/BoxToolsInstaller.dmg ;
+sleep 10;
+
+echo "STARTING XEROX PRINTER INSTALLER..."; sleep 1;
+open /Volumes/High Sierra Installer/INSTALLS/XeroxPrintDriver_5.1.0_2110.dmg
 sleep 5;
 
 #set key repeat rate and cursor blink
@@ -282,7 +285,7 @@ kill -9 $SPIN_PID;
 sudo -v;
 eval clear;
 cowsay="/usr/local/bin/cowsay"
-cowsay "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 120 SECONDS..."; sleep 130;
+cowsay "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 4 MINUTES..."; sleep 300;
 
 sudo reboot
 exit 0
