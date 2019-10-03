@@ -135,6 +135,12 @@ eval clear;
 #install ms office (launch installer)
 echo "STARTING MS OFFICE INSTALLER..."; sleep 1;
 open /Volumes/High\ Sierra\ Installer/Lyell/Microsoft_Office.pkg;
+sleep 10;
+
+#install ms office (launch installer)
+echo "STARTING BOX TOOLS INSTALLER..."; sleep 1;
+open /Volumes/High Sierra Installer/INSTALLS/BoxToolsInstaller.dmg ;
+sleep 5;
 
 #set key repeat rate and cursor blink
 echo "MODIFYING CURSOR REPEAT RATE..."; sleep 1;
