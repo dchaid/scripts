@@ -205,7 +205,7 @@ $brew install tree;
 #install brew casks
 #$brew cask aerial;
 $brew cask install atom;
-$brew cask install box;
+$brew cask install box-drive;
 #$brew cask caffeine;
 $brew cask install firefox;
 $brew cask install google-chrome;
@@ -224,6 +224,10 @@ $brew cask install slack;
 $brew cask install zoomus;
 sleep 2;
 eval clear;
+
+echo "COPYING BOX NOTES TO APPLICATIONS..."
+cp -a /Volumes/High\ Sierra\ Installer/INSTALLS/Box\ Notes.app /Applications/ ;
+sleep 1;
 
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS..."; sleep 1;
