@@ -143,7 +143,7 @@ sleep 10;
 
 echo "STARTING XEROX PRINTER INSTALLER..."; sleep 1;
 open /Volumes/High Sierra Installer/INSTALLS/XeroxPrintDriver_5.1.0_2110.dmg
-sleep 5;
+sleep 10;
 
 #set key repeat rate and cursor blink
 echo "MODIFYING CURSOR REPEAT RATE..."; sleep 1;
