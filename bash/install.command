@@ -5,9 +5,10 @@
 #Last Modified: October 3, 2019
 #Modified by: David Chaid
 #Modified for: Lyell — MacBook Provisioning
-#Updates Available at: https://github.com/dchaid/scripts/blob/master/install.command
+#Updates Available at: https://github.com/dchaid/scripts/blob/master/bash/install.command
 #Description: Connects to KDIGuest, adds admin account, installs homebrew, MS Office,enables firewall,
 #mods cursor rate, sophos, adds dock icons, runs macOS Software Update, adds meraki mdm. Automatically reboots.
+#Installs inSync, Xerox Software drivers, Box Notes, 
 #*****************************************************************************************************************************
 
 #*****************************************************************************************************************************
@@ -45,6 +46,11 @@ SPIN_PID=$!
 trap "kill -9 $SPIN_PID" `seq 0 15`
 
 echo "STARTING INSTALLATION..."; sleep 1;
+
+
+#*****************************************************************************************************************************
+#wifi connection...add if needed
+#*****************************************************************************************************************************
 
 #connect to KDIGuest network
 
@@ -116,6 +122,11 @@ else
 fi
 eval clear;
 
+#install ms office
+echo "STARTING MS OFFICE INSTALLER..."; sleep 1;
+open /Volumes/High\ Sierra\ Installer/Lyell/Microsoft_Office.pkg;
+sleep 1;
+
 #install homebrew (`if` statement in place to verify install in case first install fails)
 echo "INSTALLING HOMEBREW..."; sleep 1;
 yes '' | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
@@ -132,11 +143,7 @@ fi
 sleep 2;
 eval clear;
 
-#install ms office (launch installer); box tools installer; zerox installer
-echo "STARTING MS OFFICE INSTALLER..."; sleep 1;
-open /Volumes/High\ Sierra\ Installer/Lyell/Microsoft_Office.pkg;
-sleep 10;
-
+#install box tools installer; xerox installer
 echo "STARTING BOX TOOLS INSTALLER..."; sleep 1;
 open /Volumes/High Sierra Installer/INSTALLS/BoxToolsInstaller.dmg ;
 sleep 10;
@@ -168,10 +175,10 @@ echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 10
 
 #install meraki agent and inSync
 open /Volumes/High\ Sierra\ Installer/OSX\ Meraki\ Installer/MerakiPCCAgent.pkg;
-sleep 10;
+sleep 5;
 
 open /Volumes/High Sierra Installer/INSTALLS/inSync.mpkg; 
-sleep 10;
+sleep 5;
 
 eval clear;
 
@@ -241,7 +248,7 @@ eval clear;
 
 echo "COPYING BOX NOTES TO APPLICATIONS..."
 cp -a /Volumes/High\ Sierra\ Installer/INSTALLS/Box\ Notes.app /Applications/ ;
-sleep 1;
+sleep 2;
 
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS..."; sleep 1;
@@ -275,7 +282,9 @@ do
     eval $f\$app$z;
 done
 
-echo "DOCK ICON REORGANIZATION COMPLETE...";
+echo "DOCK ICON REORGANIZATION COMPLETE..."; sleep 2;
+echo "IF FAILED PLEASE RUN DOCK.COMMAND ON DESKTOP...";
+
 eval killall Dock; sleep 1;
 eval clear;
 
