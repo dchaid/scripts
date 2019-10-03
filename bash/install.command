@@ -166,8 +166,13 @@ open 'https://m.meraki.com/mdm/';
 echo '151-643-0130' | pbcopy;
 echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 10;
 
-#install meraki agent
+#install meraki agent and inSync
 open /Volumes/High\ Sierra\ Installer/OSX\ Meraki\ Installer/MerakiPCCAgent.pkg;
+sleep 10;
+
+open /Volumes/High Sierra Installer/INSTALLS/inSync.mpkg; 
+sleep 10;
+
 eval clear;
 
 #install brew dependencies
