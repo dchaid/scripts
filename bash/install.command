@@ -150,7 +150,7 @@ eval clear;
 #install homebrew
 brew="/usr/local/bin/brew"
 echo "STARTING HOMEBREW INSTALLATIONS...";
-$brew install ack;
+#brew install ack;
 #$brew install axel;
 #$brew install bash;
 #$brew install bash-completion;
@@ -182,7 +182,7 @@ $brew install dockutil;
 #$brew install ruby;
 #$brew install speedtest_cli;
 #$brew install tmux;
-$brew install tree;
+#$brew install tree;
 #$brew install unrar;
 #$brew install vimpager;
 #$brew install watch
@@ -207,6 +207,7 @@ $brew cask install slack;
 #$brew cask sublime-text;
 #$brew cask steam;
 #$brew cask the-unarchiver;
+#$brew cask twitch;
 #$brew cask visual-studio-code
 #$brew cask install vlc;
 $brew cask install zoomus;
