@@ -148,7 +148,7 @@ sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
 eval clear;
 
 #install homebrew
-brew="/usr/local/bin/brew"
+brew="/usr/local/bin/brew install"
 echo "STARTING HOMEBREW INSTALLATIONS...";
 #brew install ack;
 #$brew install axel;
@@ -156,7 +156,7 @@ echo "STARTING HOMEBREW INSTALLATIONS...";
 #$brew install bash-completion;
 $brew install cask;
 #$brew install coreutils;
-$brew install cowsay;
+#$brew install cowsay;
 $brew install dockutil;
 #$brew install emacs;
 #$brew install ffmpeg;
@@ -264,8 +264,6 @@ kill -9 $SPIN_PID;
 #superuser reboot if required
 sudo -v;
 eval clear;
-cowsay="/usr/local/bin/cowsay"
-cowsay "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 4 MINUTES...";
 echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 4 MINUTES..."; sleep 300;
 sudo reboot
 exit 0
