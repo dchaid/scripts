@@ -5,7 +5,6 @@
 #---Last Modified: October 4, 2019
 #---Modified by: David Chaid
 #---Modified for: Lyell — MacBook Provisioning
-#---Updates Available at: https://github.com/dchaid/scripts/blob/master/bash/install.command
 #---Description: Adds Lyell admin account, installs homebrew, MS Office,enables firewall,
 #mods cursor rate, installs sophos, adds dock icons, runs macOS Software Update, adds meraki mdm. 
 #Automatically reboots. Installs inSync, Xerox Software drivers, Box Notes, MerakiPCC.
@@ -86,7 +85,9 @@ ComputerName=$(machinename)
 renameComputer;
 
 #opening all installers
-echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP..."
+echo 'Welcome2Lyell!' | pbcopy;
+echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP...";
+echo "PASSWORD COPIED TO CLIPBOARD...";
 install="open /Volumes/lyelldrive/INSTALLS/"
 $install\InstallBoxTools.app;
 $install\inSync.mpkg; 
@@ -94,13 +95,14 @@ $install\MerakiPCCAgent.pkg;
 $install\Microsoft_Office.pkg;
 $install\SophosInstaller.app;
 $install\XeroxPrintDriver.pkg;
-cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app /Applications/; sleep 5;
+$install\mdm.mobileconfig;
+cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app /Applications/; sleep 1;
 
 #launch meraki mdm website; paste code from clipboard
-echo "STARTING MERAKI INSTALLER..."; sleep 1;
-open 'https://m.meraki.com/mdm/';
-echo '151-643-0130' | pbcopy;
-echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 5;
+#echo "STARTING MERAKI INSTALLER..."; sleep 1;
+#open 'https://m.meraki.com/mdm/';
+#echo '151-643-0130' | pbcopy;
+#echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 5;
 
 #admin account creation: checks last userID used and uses next available e.g. 501 -> 502
 echo "CREATING ADMIN ACCOUNT..."; sleep 1;
