@@ -1,19 +1,32 @@
 #!/bin/bash
-#*****************************************************************************************************************************
-#Created by: David Chaid - KDInfotech
-#Creation date: Aug. 21, 2019
-#Last Modified: October 3, 2019
-#Modified by: David Chaid
-#Modified for: Lyell — MacBook Provisioning
-#Updates Available at: https://github.com/dchaid/scripts/blob/master/bash/install.command
-#Description: Connects to KDIGuest, adds admin account, installs homebrew, MS Office,enables firewall,
-#mods cursor rate, sophos, adds dock icons, runs macOS Software Update, adds meraki mdm. Automatically reboots.
-#Installs inSync, Xerox Software drivers, Box Notes, 
-#*****************************************************************************************************************************
+#*************************************************************************************************
+#---Created by: David Chaid - KDInfotech
+#---Creation date: Aug. 21, 2019
+#---Last Modified: October 4, 2019
+#---Modified by: David Chaid
+#---Modified for: Lyell — MacBook Provisioning
+#---Updates Available at: https://github.com/dchaid/scripts/blob/master/bash/install.command
+#---Description: Adds Lyell admin account, installs homebrew, MS Office,enables firewall,
+#mods cursor rate, installs sophos, adds dock icons, runs macOS Software Update, adds meraki mdm. 
+#Automatically reboots. Installs inSync, Xerox Software drivers, Box Notes, MerakiPCC.
 
-#*****************************************************************************************************************************
-#functions
-#*****************************************************************************************************************************
+#NOTE -- External Drive MUST be labled as 'lyelldrive' with INSTALLS folder located at ROOT Level
+#➜  INSTALLS
+#.
+#├── Box\ Notes.app
+#├── Box.pkg
+#├── InstallBoxTools.app
+#├── MerakiPCCAgent.pkg
+#├── Microsoft_Office.pkg
+#├── Sophos\ Installer\ Components
+#├── SophosInstaller.app
+#├── XeroxPrintDriver.pkg
+#├── Zoom.pkg
+#├── inSync.mpkg
+#└── meraki_sm_mdm.mobileconfig
+
+#*************************************************************************************************
+
 #cursor spin
 spin()
 {
@@ -29,10 +42,6 @@ spin()
   done
 }
 
-#*****************************************************************************************************************************
-#script
-#*****************************************************************************************************************************
-
 #Resize terminal window
 printf '\e[8;65;170t'
 
@@ -44,36 +53,20 @@ sudo -v
 spin &
 SPIN_PID=$!
 trap "kill -9 $SPIN_PID" `seq 0 15`
-
 echo "STARTING INSTALLATION..."; sleep 1;
-
-
-#*****************************************************************************************************************************
-#wifi connection...add if needed
-#*****************************************************************************************************************************
-
-#connect to KDIGuest network
-
-#---commenting out unless needed
-#---echo "CONNECTING TO NETWORK..."; sleep 1;
-#---host="www.apple.com"
-#---ping -c1 "$host" &> /dev/null
-#---
-#---if [ $? -eq 0 ]; then
-#---    echo "ALREADY CONNECTED TO THE INTERNET..."; sleep 1
-#---else
-#---    echo "CONNECTING..." ; sleep 1;
-#---    sudo networksetup -setairportnetwork en0 "NETWORK NAME" PASSWORD ;
-#---    echo "CONNECTION SUCCESSFUL..."; sleep 1;
-#---fi
-#---sleep 5;
 
 #silently check for macOS software updates — runs in background...
 sudo softwareupdate -i -a >/dev/null 2>&1 &
 
+#set key repeat rate and cursor blink
+echo "MODIFYING CURSOR REPEAT RATE...";
+defaults write -g NSTextInsertionPointBlinkPeriodOn -float 200;
+defaults write -g NSTextInsertionPointBlinkPeriodOff -float 200;
+defaults write -g InitialKeyRepeat -int 15;
+defaults write -g KeyRepeat -int 2;
+
 #hostname rename prompt
 echo "PLEASE ENTER NEW HOSTNAME....LYMAC1XX..."; sleep 2;
-
 function machinename() {
     osascript <<EOT
         tell application "Finder"
@@ -82,7 +75,6 @@ function machinename() {
             end tell
 EOT
 }
-
 function renameComputer() {
     echo "NEW HOSTNAME: $ComputerName"; sleep 1;
     sudo scutil --set HostName "$ComputerName";
@@ -90,18 +82,30 @@ function renameComputer() {
     sudo scutil --set ComputerName "$ComputerName";
     echo "RENAME SUCCESSFUL..."; sleep 1;
 }
-
-#inserts captured name as "ComputerName" variable for renameComputer function
 ComputerName=$(machinename)
 renameComputer;
 
-#create admin account
-echo "CREATING ADMIN ACCOUNT..."; sleep 1;
+#opening all installers
+echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP..."
+install="open /Volumes/lyelldrive/INSTALLS/"
+$install\InstallBoxTools.app;
+$install\inSync.mpkg; 
+$install\MerakiPCCAgent.pkg;
+$install\Microsoft_Office.pkg;
+$install\SophosInstaller.app;
+$install\XeroxPrintDriver.pkg;
+cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app /Applications/; sleep 5;
+
+#launch meraki mdm website; paste code from clipboard
+echo "STARTING MERAKI INSTALLER..."; sleep 1;
+open 'https://m.meraki.com/mdm/';
+echo '151-643-0130' | pbcopy;
+echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 5;
 
 #admin account creation: checks last userID used and uses next available e.g. 501 -> 502
+echo "CREATING ADMIN ACCOUNT..."; sleep 1;
 LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
 NextID=$((LastID + 1))
-
 if [[ $(dscl . list /Users) =~ "lyelladmin" ]]; then
     echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; sleep 1;
 else
@@ -117,21 +121,14 @@ else
     sudo dscl . create /Users/lyelladmin NFSHomeDirectory /Users/lyelladmin
     sudo cp -R /System/Library/User\ Template/English.lproj /Users/lyelladmin
     sudo chown -R lyelladmin:staff /Users/lyelladmin
-
     echo "ADMIN ACCOUNT CREATED..."; sleep 2;
 fi
 eval clear;
-
-#install ms office
-echo "STARTING MS OFFICE INSTALLER..."; sleep 1;
-open /Volumes/High\ Sierra\ Installer/Lyell/Microsoft_Office.pkg;
-sleep 1;
 
 #install homebrew (`if` statement in place to verify install in case first install fails)
 echo "INSTALLING HOMEBREW..."; sleep 1;
 yes '' | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
 echo "VERIFYING HOMEBREW INSTALL...";
-
 command -v brew
 if [[ $? != 0 ]] ; then
     echo "ERROR...REINSTALLING HOMEBREW...";
@@ -143,48 +140,14 @@ fi
 sleep 2;
 eval clear;
 
-#install box tools installer; xerox installer
-echo "STARTING BOX TOOLS INSTALLER..."; sleep 1;
-open /Volumes/High Sierra Installer/INSTALLS/BoxToolsInstaller.dmg ;
-sleep 10;
-
-echo "STARTING XEROX PRINTER INSTALLER..."; sleep 1;
-open /Volumes/High Sierra Installer/INSTALLS/XeroxPrintDriver_5.1.0_2110.dmg
-sleep 10;
-
-#set key repeat rate and cursor blink
-echo "MODIFYING CURSOR REPEAT RATE..."; sleep 1;
-defaults write -g NSTextInsertionPointBlinkPeriodOn -float 200;
-defaults write -g NSTextInsertionPointBlinkPeriodOff -float 200;
-defaults write -g InitialKeyRepeat -int 15;
-defaults write -g KeyRepeat -int 2;
-
 #enable firewall
 echo "ENABLING FIREWALL..."; sleep 1;
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
-
-#install sophos (launch installer)
-echo "LAUNCHING SOPHOS INSTALLER..."; sleep 1
-open /Volumes/High\ Sierra\ Installer/Lyell/Sophos/Sophos\ Installer.app;
-
-#install meraki mdm
-echo "STARTING MERAKI INSTALLER..."; sleep 1;
-open 'https://m.meraki.com/mdm/';
-echo '151-643-0130' | pbcopy;
-echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 10;
-
-#install meraki agent and inSync
-open /Volumes/High\ Sierra\ Installer/OSX\ Meraki\ Installer/MerakiPCCAgent.pkg;
-sleep 5;
-
-open /Volumes/High Sierra Installer/INSTALLS/inSync.mpkg; 
-sleep 5;
-
 eval clear;
 
-#install brew dependencies
+#install homebrew
 brew="/usr/local/bin/brew"
-echo "STARTING HOMEBREW INSTALLATIONS..."; sleep 2;
+echo "STARTING HOMEBREW INSTALLATIONS...";
 $brew install ack;
 #$brew install axel;
 #$brew install bash;
@@ -224,6 +187,8 @@ $brew install tree;
 #$brew install wget;
 
 #install brew casks
+$brew install cask;
+$brew cask install 1password;
 #$brew cask aerial;
 $brew cask install atom;
 $brew cask install box-drive;
@@ -246,17 +211,14 @@ $brew cask install zoomus;
 sleep 2;
 eval clear;
 
-echo "COPYING BOX NOTES TO APPLICATIONS..."
-cp -a /Volumes/High\ Sierra\ Installer/INSTALLS/Box\ Notes.app /Applications/ ;
-sleep 2;
-
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
-echo "REMOVING DOCK ICONS..."; sleep 1;
+echo "REMOVING DOCK ICONS...";
 eval killall cfprefsd;
-sudo /usr/local/bin/dockutil --remove all; sleep 1;
+sudo /usr/local/bin/dockutil --remove all;
 
-#add items to dock
-echo "ADDING DOCK ICONS..."; sleep 1;
+#add items to dock -- re-add dock util if not installed prior
+$brew install dockutil ; 
+echo "ADDING DOCK ICONS...";
 x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
@@ -282,12 +244,13 @@ do
     eval $f\$app$z;
 done
 
-echo "DOCK ICON REORGANIZATION COMPLETE..."; sleep 2;
+echo "DOCK ICON REORGANIZATION COMPLETE...";
 echo "IF FAILED PLEASE RUN DOCK.COMMAND ON DESKTOP...";
 
-eval killall Dock; sleep 1;
+eval killall Dock;
 eval clear;
 
+#launches external terminal to retry dock reorg
 osascript -e 'tell app "Terminal"
     do script "bash ~/Desktop/Install/dock.command"
 end tell'
@@ -299,7 +262,7 @@ kill -9 $SPIN_PID;
 sudo -v;
 eval clear;
 cowsay="/usr/local/bin/cowsay"
-cowsay "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 4 MINUTES..."; sleep 300;
-
+cowsay "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 4 MINUTES...";
+echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 4 MINUTES..."; sleep 300;
 sudo reboot
 exit 0

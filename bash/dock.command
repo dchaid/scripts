@@ -31,7 +31,7 @@ sudo -v
 spin &
 SPIN_PID=$!
 trap "kill -9 $SPIN_PID" `seq 0 15`
-
+$brew install dockutil ;
 echo "REMOVING DOCK ICONS..."; sleep 1;
 eval killall cfprefsd;
 sudo /usr/local/bin/dockutil --remove all; sleep 1;
