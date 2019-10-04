@@ -29,6 +29,8 @@ spin()
   done
 }
 
+clear="eval clear"
+
 #Resize terminal window
 printf '\e[8;65;170t'
 
@@ -47,7 +49,7 @@ sudo softwareupdate -i -a >/dev/null 2>&1 &
 
 #set key repeat rate and cursor blink
 echo "MODIFYING CURSOR REPEAT RATE...";
-rate='eval defaults write -g'
+rate="eval defaults write -g"
 $rate NSTextInsertionPointBlinkPeriodOn -float 200;
 $rate NSTextInsertionPointBlinkPeriodOff -float 200;
 $rate InitialKeyRepeat -int 15;
@@ -108,7 +110,7 @@ else
     sudo chown -R lyelladmin:staff /Users/lyelladmin
     echo "ADMIN ACCOUNT CREATED..."; sleep 2;
 fi
-eval clear;
+$clear
 
 #install homebrew (`if` statement in place to verify install in case first install fails)
 echo "INSTALLING HOMEBREW..."; sleep 1;
@@ -123,12 +125,11 @@ else
     brew update;
 fi
 sleep 2;
-eval clear;
+$clear
 
 #enable firewall
 echo "ENABLING FIREWALL..."; sleep 1;
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
-eval clear;
 
 #install homebrew
 brew="/usr/local/bin/brew install"
@@ -146,7 +147,7 @@ $brew google-chrome;
 $brew java;
 $brew slack;
 $brew zoomus;
-eval clear;
+$clear
 
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS...";
@@ -185,7 +186,7 @@ echo "DOCK ICON REORGANIZATION COMPLETE...";
 echo "IF FAILED PLEASE RUN DOCK.COMMAND ON DESKTOP...";
 
 eval killall Dock;
-eval clear;
+$clear
 
 #launches external terminal to retry dock reorg
 osascript -e 'tell app "Terminal"
@@ -197,7 +198,7 @@ kill -9 $SPIN_PID;
 
 #superuser reboot if required
 sudo -v;
-eval clear;
+$clear
 echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 10 MINUTES..."; 
 echo "ALLOW SOFTWARE UPDATE TO COMPLETE IF POSSIBLE...";sleep 800;
 sudo reboot
