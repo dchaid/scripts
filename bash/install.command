@@ -1,31 +1,19 @@
 #!/bin/bash
 #*************************************************************************************************
-#---Created by: David Chaid - KDInfotech
+#---Created by: David Chaid - KDInfotech :: For — Lyell — MacBook Provisioning
 #---Creation date: Aug. 21, 2019
 #---Last Modified: October 4, 2019
-#---Modified by: David Chaid
-#---Modified for: Lyell — MacBook Provisioning
-#---Description: Adds Lyell admin account, installs homebrew, MS Office,enables firewall,
-#mods cursor rate, installs sophos, adds dock icons, runs macOS Software Update, adds meraki mdm. 
-#Automatically reboots. Installs inSync, Xerox Software drivers, Box Notes, MerakiPCC.
+#---Description: Adds Lyell admin account, installs homebrew, MS Office,enables 
+#---firewall, mods cursor rate, installs sophos, adds dock icons, runs macOS Software Update, 
+#---adds meraki mdm. Automatically reboots. Installs inSync, Xerox Software drivers, 
+#---Box Notes, MerakiPCC.
 
-#NOTE -- External Drive MUST be labled as 'lyelldrive' with INSTALLS folder located at ROOT Level
-#➜  INSTALLS
-#.
-#├── Box\ Notes.app
-#├── Box.pkg
-#├── InstallBoxTools.app
-#├── MerakiPCCAgent.pkg
-#├── Microsoft_Office.pkg
-#├── Sophos\ Installer\ Components
-#├── SophosInstaller.app
-#├── XeroxPrintDriver.pkg
-#├── Zoom.pkg
-#├── inSync.mpkg
-#└── meraki_sm_mdm.mobileconfig
-
+#---NOTE: External Drive MUST be labled as 'lyelldrive' with INSTALLS folder located at ROOT Level
+#/lyelldrive/INSTALLS/ Contents:
+#Box\ Notes.app, Box.pkg, InstallBoxTools.app, MerakiPCCAgent.pkg, Microsoft_Office.pkg, 
+#Sophos\ Installer\ Components, SophosInstaller.app, XeroxPrintDriver.pkg, Zoom.pkg, inSync.mpkg, 
+#meraki_sm_mdm.mobileconfig
 #*************************************************************************************************
-
 #cursor spin
 spin()
 {
@@ -59,10 +47,11 @@ sudo softwareupdate -i -a >/dev/null 2>&1 &
 
 #set key repeat rate and cursor blink
 echo "MODIFYING CURSOR REPEAT RATE...";
-defaults write -g NSTextInsertionPointBlinkPeriodOn -float 200;
-defaults write -g NSTextInsertionPointBlinkPeriodOff -float 200;
-defaults write -g InitialKeyRepeat -int 15;
-defaults write -g KeyRepeat -int 2;
+rate='eval defaults write -g'
+$rate NSTextInsertionPointBlinkPeriodOn -float 200;
+$rate NSTextInsertionPointBlinkPeriodOff -float 200;
+$rate InitialKeyRepeat -int 15;
+$rate KeyRepeat -int 2;
 
 #hostname rename prompt
 echo "PLEASE ENTER NEW HOSTNAME....LYMAC1XX..."; sleep 2;
@@ -96,13 +85,7 @@ $install\Microsoft_Office.pkg;
 $install\SophosInstaller.app;
 $install\XeroxPrintDriver.pkg;
 $install\mdm.mobileconfig;
-cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app /Applications/; sleep 1;
-
-#launch meraki mdm website; paste code from clipboard
-#echo "STARTING MERAKI INSTALLER..."; sleep 1;
-#open 'https://m.meraki.com/mdm/';
-#echo '151-643-0130' | pbcopy;
-#echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 5;
+cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app /Applications/;
 
 #admin account creation: checks last userID used and uses next available e.g. 501 -> 502
 echo "CREATING ADMIN ACCOUNT..."; sleep 1;
@@ -150,68 +133,19 @@ eval clear;
 #install homebrew
 brew="/usr/local/bin/brew install"
 echo "STARTING HOMEBREW INSTALLATIONS...";
-#brew install ack;
-#$brew install axel;
-#$brew install bash;
-#$brew install bash-completion;
-$brew install cask;
-#$brew install coreutils;
-#$brew install cowsay;
-$brew install dockutil;
-#$brew install emacs;
-#$brew install ffmpeg;
-#$brew install gawk;
-#$brew install geoip;
-#$brew install hh;
-#$brew install htop;
-#$brew install imagemagick;
-#$brew install links;
-#$brew install lynx;
-#$brew install macvim;
-#$brew install mysql;
-#$brew install ncdu;
-#$brew install nmap;
-#$brew install nodejs;
-#$brew install pbcopy;
-#$brew install python;
-#$brew install python3;
-#$brew install rclone;
-#$brew install rlwrap;
-#$brew install rsync;
-#$brew install rtv;
-#$brew install ruby;
-#$brew install speedtest_cli;
-#$brew install tmux;
-#$brew install tree;
-#$brew install unrar;
-#$brew install vimpager;
-#$brew install watch
-#$brew install wget;
+$brew cask;
+$brew dockutil;
 
 #install brew casks
-$brew install cask;
-$brew cask install 1password;
-#$brew cask aerial;
-$brew cask install atom;
-$brew cask install box-drive;
-#$brew cask caffeine;
-$brew cask install firefox;
-$brew cask install google-chrome;
-#$brew cask google-drive;
-#$brew cask iterm2;
-$brew cask install java;
-#$brew cask opera;
-#$brew cask skype;
-$brew cask install slack;
-#$brew cask spotify;
-#$brew cask sublime-text;
-#$brew cask steam;
-#$brew cask the-unarchiver;
-#$brew cask twitch;
-#$brew cask visual-studio-code
-#$brew cask install vlc;
-$brew cask install zoomus;
-sleep 2;
+brew="/usr/local/bin/brew install cask"
+$brew 1password;
+$brew atom;
+$brew box-drive;
+$brew firefox;
+$brew google-chrome;
+$brew java;
+$brew slack;
+$brew zoomus;
 eval clear;
 
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
@@ -264,6 +198,7 @@ kill -9 $SPIN_PID;
 #superuser reboot if required
 sudo -v;
 eval clear;
-echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 4 MINUTES..."; sleep 300;
+echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 10 MINUTES..."; 
+echo "ALLOW SOFTWARE UPDATE TO COMPLETE IF POSSIBLE...";sleep 800;
 sudo reboot
 exit 0

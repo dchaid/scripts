@@ -1,0 +1,66 @@
+#!/bin/bash
+#install homebrew
+brew="/usr/local/bin/brew install"
+echo "STARTING HOMEBREW INSTALLATIONS...";
+#brew ack;
+#$brew axel;
+#$brew bash;
+#$brew bash-completion;
+$brew cask;
+#$brew coreutils;
+#$brew cowsay;
+$brew dockutil;
+#$brew emacs;
+#$brew ffmpeg;
+#$brew gawk;
+#$brew geoip;
+#$brew hh;
+#$brew htop;
+#$brew imagemagick;
+#$brew links;
+#$brew lynx;
+#$brew macvim;
+#$brew mysql;
+#$brew ncdu;
+#$brew nmap;
+#$brew nodejs;
+#$brew pbcopy;
+#$brew python;
+#$brew python3;
+#$brew rclone;
+#$brew rlwrap;
+#$brew rsync;
+#$brew rtv;
+#$brew ruby;
+#$brew speedtest_cli;
+#$brew tmux;
+#$brew tree;
+#$brew unrar;
+#$brew vimpager;
+#$brew watch
+#$brew wget;
+
+#install brew casks
+brew="/usr/local/bin/brew install cask"
+$brew 1password;
+#$brew aerial;
+$brew atom;
+$brew box-drive;
+#$brew caffeine;
+$brew firefox;
+$brew google-chrome;
+#$brew google-drive;
+#$brew iterm2;
+$brew java;
+#$brew opera;
+#$brew skype;
+$brew slack;
+#$brew spotify;
+#$brew sublime-text;
+#$brew steam;
+#$brew the-unarchiver;
+#$brew twitch;
+#$brew visual-studio-code
+#$brew vlc;
+$brew zoomus;
+eval clear;
