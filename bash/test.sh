@@ -1,20 +1,17 @@
 #!/bin/bash
 
-#install homebrew
-brew="/usr/local/bin/brew install"
-echo "STARTING HOMEBREW INSTALLATIONS...";
-$brew cask;
-$brew dockutil;
+install="open /Volumes/lyelldrive/INSTALLS/"
+installers=(
+    "InstallBoxTools.app"
+    "inSync.mpkg"
+    "MerakiPCCAgent.pkg"
+    "Microsoft_Office.pkg"
+    "SophosInstaller.app"
+    "XeroxPrintDriver.pkg"
+    "mdm.mobileconfig"
+)
 
-#install brew casks
-brew="/usr/local/bin/brew cask install"
-$brew 1password;
-$brew atom;
-$brew box-drive;
-$brew firefox;
-$brew google-chrome;
-$brew java;
-$brew slack;
-$brew zoomus;
-$clear
-exit 0
+for app in "${installers[@]}"
+do
+    eval $install\$app;
+done
