@@ -47,6 +47,10 @@ echo "STARTING INSTALLATION..."; sleep 1;
 #silently check for macOS software updates — runs in background...
 sudo softwareupdate -i -a >/dev/null 2>&1 &
 
+#enable firewall
+echo "ENABLING FIREWALL..."; sleep 1;
+sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
+
 #set key repeat rate and cursor blink
 echo "MODIFYING CURSOR REPEAT RATE...";
 rate="eval defaults write -g"
@@ -78,15 +82,22 @@ renameComputer;
 #opening all installers
 echo 'Welcome2Lyell!' | pbcopy;
 echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP...";
-echo "PASSWORD COPIED TO CLIPBOARD...";
+echo "ADMIN PASSWORD COPIED TO CLIPBOARD...";
 install="open /Volumes/lyelldrive/INSTALLS/"
-$install\InstallBoxTools.app;
-$install\inSync.mpkg; 
-$install\MerakiPCCAgent.pkg;
-$install\Microsoft_Office.pkg;
-$install\SophosInstaller.app;
-$install\XeroxPrintDriver.pkg;
-$install\mdm.mobileconfig;
+installers=(
+    "InstallBoxTools.app"
+    "inSync.mpkg"
+    "MerakiPCCAgent.pkg"
+    "Microsoft_Office.pkg"
+    "SophosInstaller.app"
+    "XeroxPrintDriver.pkg"
+    "mdm.mobileconfig"
+)
+
+for app in "${installers[@]}"
+do
+    eval $install\$app;
+done
 cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app /Applications/;
 
 #admin account creation: checks last userID used and uses next available e.g. 501 -> 502
@@ -125,11 +136,9 @@ else
     brew update;
 fi
 sleep 2;
+sudo chown -R $(whoami) /usr/local/share/man/man8;
+sudo chmod u+w /usr/local/share/man/man8;
 $clear
-
-#enable firewall
-echo "ENABLING FIREWALL..."; sleep 1;
-sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
 
 #install homebrew
 brew="/usr/local/bin/brew install"
