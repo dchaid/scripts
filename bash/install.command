@@ -2,7 +2,7 @@
 #*************************************************************************************************
 #---Created by: David Chaid - KDInfotech :: For — Lyell — MacBook Provisioning
 #---Creation date: Aug. 21, 2019
-#---Last Modified: October 4, 2019
+#---Last Modified: October 7, 2019
 #---Description: Adds Lyell admin account, installs homebrew, MS Office,enables 
 #---firewall, mods cursor rate, installs sophos, adds dock icons, runs macOS Software Update, 
 #---adds meraki mdm. Automatically reboots. Installs inSync, Xerox Software drivers, 
@@ -28,7 +28,6 @@ spin()
     done
   done
 }
-
 clear="eval clear"
 
 #Resize terminal window
@@ -93,7 +92,6 @@ installers=(
     "XeroxPrintDriver.pkg"
     "mdm.mobileconfig"
 )
-
 for app in "${installers[@]}"
 do
     eval $install\$app;
@@ -185,15 +183,12 @@ apps=(
     "System Preferences.app"
     "zoom.us.app"
 )
-
 for app in "${apps[@]}"
 do
     eval $f\$app$z;
 done
-
 echo "DOCK ICON REORGANIZATION COMPLETE...";
 echo "IF FAILED PLEASE RUN DOCK.COMMAND ON DESKTOP...";
-
 eval killall Dock;
 $clear
 
@@ -201,10 +196,8 @@ $clear
 osascript -e 'tell app "Terminal"
     do script "bash ~/Desktop/Install/dock.command"
 end tell'
-
 #kill spinner
 kill -9 $SPIN_PID;
-
 #superuser reboot if required
 sudo -v;
 $clear
