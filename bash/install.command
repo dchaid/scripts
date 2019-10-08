@@ -1,20 +1,19 @@
 #!/bin/bash
-#*************************************************************************************************
-#---Created by: David Chaid - KDInfotech :: For — Lyell — MacBook Provisioning
+#*******************************************************************************
 #---Creation date: Aug. 21, 2019
 #---Last Modified: October 7, 2019
 #---Description: Adds Lyell admin account, installs homebrew, MS Office,enables 
-#---firewall, mods cursor rate, installs sophos, adds dock icons, runs macOS Software Update, 
-#---adds meraki mdm. Automatically reboots. Installs inSync, Xerox Software drivers, 
-#---Box Notes, MerakiPCC.
+#---firewall, mods cursor rate, installs sophos, adds dock icons, runs macOS 
+#---Software Update, adds meraki mdm. Automatically reboots. Installs inSync, 
+#---Xerox Software drivers, Box Notes, MerakiPCC.
 
-#---NOTE: External Drive MUST be labled as 'lyelldrive' with INSTALLS folder located at ROOT Level
+#---NOTE: External Drive MUST be labled as 'lyelldrive' with INSTALLS folder 
+#---located at ROOT Level...
 #/lyelldrive/INSTALLS/ Contents:
-#Box\ Notes.app, Box.pkg, InstallBoxTools.app, MerakiPCCAgent.pkg, Microsoft_Office.pkg, 
-#Sophos\ Installer\ Components, SophosInstaller.app, XeroxPrintDriver.pkg, Zoom.pkg, inSync.mpkg, 
-#meraki_sm_mdm.mobileconfig
-#*************************************************************************************************
-#cursor spin
+#Box Notes.app, Box.pkg, InstallBoxTools.app, MerakiPCCAgent.pkg, 
+#Microsoft_Office.pkg, Sophos\ Installer Components, SophosInstaller.app, 
+#XeroxPrintDriver.pkg, Zoom.pkg, inSync.mpkg, meraki_sm_mdm.mobileconfig
+#*******************************************************************************
 spin()
 {
   spinner="/|\\—/|\\—"
@@ -57,7 +56,9 @@ function machinename() {
     osascript <<EOT
         tell application "Finder"
             activate
-            set nameentry to text returned of (display dialog "Please Input New Hostname" default answer "" with icon 2)
+            set nameentry to text returned of 
+            (display dialog "Please Input New Hostname" 
+            default answer "" with icon 2)
             end tell
 EOT
 }
@@ -75,14 +76,15 @@ echo 'Welcome2Lyell!' | pbcopy;
 echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP...";
 echo "ADMIN PASSWORD COPIED TO CLIPBOARD...";
 install="open /Volumes/lyelldrive/INSTALLS/"
-installers=("InstallBoxTools.app" "inSync.mpkg" "MerakiPCCAgent.pkg" "Microsoft_Office.pkg"
-"SophosInstaller.app" "XeroxPrintDriver.pkg" "mdm.mobileconfig")
+installers=("InstallBoxTools.app" "inSync.mpkg" "MerakiPCCAgent.pkg" 
+"Microsoft_Office.pkg" "SophosInstaller.app" "XeroxPrintDriver.pkg" 
+"mdm.mobileconfig")
 for app in "${installers[@]}"
 do
     eval "$install"\$app;
 done
 eval cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app /Applications/;
-#admin account creation: checks last userID used and uses next available e.g. 501 -> 502
+#admin account creation: checks last userID used and uses next available
 echo "CREATING ADMIN ACCOUNT..."; sleep 1;
 LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
 NextID=$((LastID + 1))
@@ -105,7 +107,7 @@ else
     echo "ADMIN ACCOUNT CREATED..."; sleep 2;
 fi
 $clear
-#install homebrew (`if` statement in place to verify install in case first install fails)
+#install homebrew
 echo "INSTALLING HOMEBREW..."; sleep 1;
 yes '' | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
 echo "VERIFYING HOMEBREW INSTALL...";
@@ -127,15 +129,15 @@ echo "STARTING HOMEBREW INSTALLATIONS...";
 $brew cask;
 $brew dockutil;
 #install brew casks
-brew="/usr/local/bin/brew install cask"
-$brew 1password;
-$brew atom;
-$brew box-drive;
-$brew firefox;
-$brew google-chrome;
-$brew java;
-$brew slack;
-$brew zoomus;
+cask="/usr/local/bin/brew install cask"
+$cask 1password;
+$cask atom;
+$cask box-drive;
+$cask firefox;
+$cask google-chrome;
+$cask java;
+$cask slack;
+$cask zoomus;
 $clear
 sudo chown -R "$(whoami)" /usr/local/share/man/man8;
 sudo chmod u+w /usr/local/share/man/man8;
@@ -150,8 +152,9 @@ x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
 f="$x"$y
-apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app" "Microsoft Outlook.app" 
-"Microsoft Word.app" "Microsoft Excel.app" "System Preferences.app" "zoom.us.app")
+apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app" 
+"Microsoft Outlook.app"  "Microsoft Word.app" "Microsoft Excel.app" 
+"System Preferences.app" "zoom.us.app")
 for app in "${apps[@]}"
 do
     eval "$f"\$app$z;
