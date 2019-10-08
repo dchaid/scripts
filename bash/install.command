@@ -29,27 +29,21 @@ spin()
   done
 }
 clear="eval clear"
-
 #Resize terminal window
 printf '\e[8;65;170t'
-
 #user to enter sudo password to start
 echo "PLEASE ENTER ADMIN PASSWORD TO EXECUTE SCRIPT...";
 sudo -v
-
 # Start the Spinner + Make a note of its Process ID (PID)
 spin &
 SPIN_PID=$!
 trap 'kill -9 $SPIN_PID' $(seq 0 15)
 echo "STARTING INSTALLATION..."; sleep 1;
-
 #silently check for macOS software updates — runs in background...
 sudo softwareupdate -i -a >/dev/null 2>&1 &
-
 #enable firewall
 echo "ENABLING FIREWALL..."; sleep 1;
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
-
 #set key repeat rate and cursor blink
 echo "MODIFYING CURSOR REPEAT RATE...";
 rate="eval defaults write -g"
@@ -57,7 +51,6 @@ $rate NSTextInsertionPointBlinkPeriodOn -float 200;
 $rate NSTextInsertionPointBlinkPeriodOff -float 200;
 $rate InitialKeyRepeat -int 15;
 $rate KeyRepeat -int 2;
-
 #hostname rename prompt
 echo "PLEASE ENTER NEW HOSTNAME....LYMAC1XX..."; sleep 2;
 function machinename() {
@@ -77,27 +70,18 @@ function renameComputer() {
 }
 ComputerName=$(machinename)
 renameComputer;
-
 #opening all installers
 echo 'Welcome2Lyell!' | pbcopy;
 echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP...";
 echo "ADMIN PASSWORD COPIED TO CLIPBOARD...";
 install="open /Volumes/lyelldrive/INSTALLS/"
-installers=(
-    "InstallBoxTools.app"
-    "inSync.mpkg"
-    "MerakiPCCAgent.pkg"
-    "Microsoft_Office.pkg"
-    "SophosInstaller.app"
-    "XeroxPrintDriver.pkg"
-    "mdm.mobileconfig"
-)
+installers=("InstallBoxTools.app" "inSync.mpkg" "MerakiPCCAgent.pkg" "Microsoft_Office.pkg"
+"SophosInstaller.app" "XeroxPrintDriver.pkg" "mdm.mobileconfig")
 for app in "${installers[@]}"
 do
     eval "$install"\$app;
 done
 eval cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app /Applications/;
-
 #admin account creation: checks last userID used and uses next available e.g. 501 -> 502
 echo "CREATING ADMIN ACCOUNT..."; sleep 1;
 LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
@@ -121,7 +105,6 @@ else
     echo "ADMIN ACCOUNT CREATED..."; sleep 2;
 fi
 $clear
-
 #install homebrew (`if` statement in place to verify install in case first install fails)
 echo "INSTALLING HOMEBREW..."; sleep 1;
 yes '' | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
@@ -138,13 +121,11 @@ sleep 2;
 sudo chown -R "$(whoami)" /usr/local/share/man/man8;
 sudo chmod u+w /usr/local/share/man/man8;
 $clear
-
 #install homebrew
 brew="/usr/local/bin/brew install"
 echo "STARTING HOMEBREW INSTALLATIONS...";
 $brew cask;
 $brew dockutil;
-
 #install brew casks
 brew="/usr/local/bin/brew install cask"
 $brew 1password;
@@ -156,12 +137,12 @@ $brew java;
 $brew slack;
 $brew zoomus;
 $clear
-
+sudo chown -R "$(whoami)" /usr/local/share/man/man8;
+sudo chmod u+w /usr/local/share/man/man8;
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS...";
 eval killall cfprefsd;
 sudo /usr/local/bin/dockutil --remove all;
-
 #add items to dock -- re-add dock util if not installed prior
 $brew install dockutil ; 
 echo "ADDING DOCK ICONS...";
@@ -169,21 +150,8 @@ x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
 f="$x"$y
-
-#app list array -- freely add more in double-quotes or rearrange
-apps=(
-    "Google Chrome.app"
-    "Safari.app"
-    "Firefox.app"
-    "Messages.app"
-    "Slack.app"
-    "Microsoft Outlook.app"
-    "Microsoft Word.app"
-    "Microsoft Excel.app"
-    "App Store.app"
-    "System Preferences.app"
-    "zoom.us.app"
-)
+apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app" "Microsoft Outlook.app" 
+"Microsoft Word.app" "Microsoft Excel.app" "System Preferences.app" "zoom.us.app")
 for app in "${apps[@]}"
 do
     eval "$f"\$app$z;
@@ -192,7 +160,6 @@ echo "DOCK ICON REORGANIZATION COMPLETE...";
 echo "IF FAILED PLEASE RUN DOCK.COMMAND ON DESKTOP...";
 eval killall Dock;
 $clear
-
 #launches external terminal to retry dock reorg
 osascript -e 'tell app "Terminal"
     do script "bash ~/Desktop/Install/dock.command"
