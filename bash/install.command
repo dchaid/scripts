@@ -20,7 +20,7 @@ spin()
   spinner="/|\\—/|\\—"
   while :
   do
-    for i in `seq 0 7`
+    for i in $(seq 0 7)
     do
       echo -n "${spinner:$i:1}"
       echo -en "\010"
@@ -40,7 +40,7 @@ sudo -v
 # Start the Spinner + Make a note of its Process ID (PID)
 spin &
 SPIN_PID=$!
-trap "kill -9 $SPIN_PID" `seq 0 15`
+trap 'kill -9 $SPIN_PID' $(seq 0 15)
 echo "STARTING INSTALLATION..."; sleep 1;
 
 #silently check for macOS software updates — runs in background...
@@ -94,7 +94,7 @@ installers=(
 )
 for app in "${installers[@]}"
 do
-    eval $install\$app;
+    eval "$install"\$app;
 done
 eval cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app /Applications/;
 
@@ -105,16 +105,17 @@ NextID=$((LastID + 1))
 if [[ $(dscl . list /Users) =~ "lyelladmin" ]]; then
     echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; sleep 1;
 else
+    lyelladmin='sudo dscl . create /Users/lyelladmin'
     . /etc/rc.common
-    sudo dscl . create /Users/lyelladmin
-    sudo dscl . create /Users/lyelladmin RealName "Lyell Admin"
-    sudo dscl . create /Users/lyelladmin hint ""
-    sudo dscl . create /Users/lyelladmin picture "/Library/User Pictures/Nature/Earth.png"
+    $lyelladmin
+    $lyelladmin RealName "Lyell Admin"
+    $lyelladmin hint ""
+    $lyelladmin picture "/Library/User Pictures/Nature/Earth.png"
+    $lyelladmin UniqueID $NextID
+    $lyelladmin PrimaryGroupID 80
+    $lyelladmin UserShell /bin/bash
+    $lyelladmin NFSHomeDirectory /Users/lyelladmin
     sudo dscl . passwd /Users/lyelladmin 2wsx^YHN
-    sudo dscl . create /Users/lyelladmin UniqueID $NextID
-    sudo dscl . create /Users/lyelladmin PrimaryGroupID 80
-    sudo dscl . create /Users/lyelladmin UserShell /bin/bash
-    sudo dscl . create /Users/lyelladmin NFSHomeDirectory /Users/lyelladmin
     sudo cp -R /System/Library/User\ Template/English.lproj /Users/lyelladmin
     sudo chown -R lyelladmin:staff /Users/lyelladmin
     echo "ADMIN ACCOUNT CREATED..."; sleep 2;
@@ -134,7 +135,7 @@ else
     brew update;
 fi
 sleep 2;
-sudo chown -R $(whoami) /usr/local/share/man/man8;
+sudo chown -R "$(whoami)" /usr/local/share/man/man8;
 sudo chmod u+w /usr/local/share/man/man8;
 $clear
 
@@ -185,7 +186,7 @@ apps=(
 )
 for app in "${apps[@]}"
 do
-    eval $f\$app$z;
+    eval "$f"\$app$z;
 done
 echo "DOCK ICON REORGANIZATION COMPLETE...";
 echo "IF FAILED PLEASE RUN DOCK.COMMAND ON DESKTOP...";
