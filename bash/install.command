@@ -142,11 +142,12 @@ $clear
 sudo chown -R "$(whoami)" /usr/local/share/man/man8;
 sudo chmod u+w /usr/local/share/man/man8;
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
+dockutil="/usr/local/bin/dockutil"
 echo "REMOVING DOCK ICONS...";
-eval killall cfprefsd;
-sudo /usr/local/bin/dockutil --remove all;
-#add items to dock -- re-add dock util if not installed prior
 $brew install dockutil ; 
+eval killall cfprefsd;
+sudo $dockutil --remove all;
+#add items to dock -- re-add dock util if not installed prior
 echo "ADDING DOCK ICONS...";
 x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
