@@ -1,7 +1,7 @@
 #!/bin/bash
 #*******************************************************************************
 #---Creation date: Aug. 21, 2019
-#---Last Modified: October 7, 2019
+#---Last Modified: October 9, 2019
 #---Description: Adds Lyell admin account, installs homebrew, MS Office,enables 
 #---firewall, mods cursor rate, installs sophos, adds dock icons, runs macOS 
 #---Software Update, adds meraki mdm. Automatically reboots. Installs inSync, 
@@ -32,6 +32,7 @@ spin()
 clear="eval clear"
 sleep="/bin/sleep"
 rate="eval defaults write -g"
+scutil="sudo scutil --set"
 admin="sudo dscl . create /Users/lyelladmin"
 brew="/usr/local/bin/brew install"
 cask="/usr/local/bin/brew install cask"
@@ -77,9 +78,9 @@ EOT
 }
 function renameComputer() {
     echo "NEW HOSTNAME: $ComputerName"; $sleep 1;
-    sudo scutil --set HostName "$ComputerName";
-    sudo scutil --set LocalHostName "$ComputerName";
-    sudo scutil --set ComputerName "$ComputerName";
+    $scutil HostName "$ComputerName";
+    $scutil LocalHostName "$ComputerName";
+    $scutil ComputerName "$ComputerName";
     echo "RENAME SUCCESSFUL..."; $sleep 1;
 }
 ComputerName=$(machinename)
