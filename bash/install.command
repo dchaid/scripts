@@ -27,7 +27,20 @@ spin()
     done
   done
 }
+
+#aliases
 clear="eval clear"
+sleep="/bin/sleep"
+rate="eval defaults write -g"
+lyelladmin="sudo dscl . create /Users/lyelladmin"
+brew="/usr/local/bin/brew install"
+cask="/usr/local/bin/brew install cask"
+dockutil="/usr/local/bin/dockutil"
+x="defaults write com.apple.dock persistent-apps -array-add "
+y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
+z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
+f="$x"$y
+
 #Resize terminal window
 printf '\e[8;65;170t'
 #user to enter sudo password to start
@@ -38,7 +51,6 @@ spin &
 SPIN_PID=$!
 trap 'kill -9 $SPIN_PID' $(seq 0 15)
 #script start
-sleep='/bin/sleep'
 echo "STARTING INSTALLATION..."; $sleep 1;
 #silently check for macOS software updates — runs in background...
 sudo softwareupdate -i -a >/dev/null 2>&1 &
@@ -47,7 +59,6 @@ echo "ENABLING FIREWALL..."; $sleep 1;
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
 #set key repeat rate and cursor blink
 echo "MODIFYING CURSOR REPEAT RATE..."; $sleep 1;
-rate="eval defaults write -g"
 $rate NSTextInsertionPointBlinkPeriodOn -float 200;
 $rate NSTextInsertionPointBlinkPeriodOff -float 200;
 $rate InitialKeyRepeat -int 15;
@@ -93,7 +104,6 @@ NextID=$((LastID + 1))
 if [[ $(dscl . list /Users) =~ "lyelladmin" ]]; then
     echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; $sleep 1;
 else
-    lyelladmin='sudo dscl . create /Users/lyelladmin'
     . /etc/rc.common
     $lyelladmin
     $lyelladmin RealName "Lyell Admin"
@@ -128,12 +138,10 @@ sudo chmod u+w /usr/local/share/man/man8;
 echo "CHANGING PERMISSIONS OF /usr/local/share/man/man8"; $sleep 1;
 $clear
 #install homebrew
-brew="/usr/local/bin/brew install"
 echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 1;
 $brew cask;
 $brew dockutil;
 #install brew casks
-cask="/usr/local/bin/brew install cask"
 $cask 1password;
 $cask atom;
 $cask box-drive;
@@ -148,17 +156,12 @@ echo "CHANGING OWNERSHIP OF /usr/local/share/man/man8..."; $sleep 1;
 sudo chmod u+w /usr/local/share/man/man8;
 echo "CHANGING PERMISSIONS OF /usr/local/share/man/man8"; $sleep 1;
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
-dockutil="/usr/local/bin/dockutil"
 echo "REMOVING DOCK ICONS..."; $sleep 1;
 $brew install dockutil ; $sleep 3;
 eval killall cfprefsd; $sleep 3;
 sudo $dockutil --remove all; $sleep 5;
 #add items to dock -- re-add dock util if not installed prior
 echo "ADDING DOCK ICONS..."; $sleep 3;
-x="defaults write com.apple.dock persistent-apps -array-add "
-y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
-z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
-f="$x"$y
 apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app" 
 "Microsoft Outlook.app"  "Microsoft Word.app" "Microsoft Excel.app" 
 "System Preferences.app" "zoom.us.app")
@@ -171,9 +174,9 @@ echo "IF FAILED PLEASE RUN DOCK.COMMAND ON DESKTOP..."; $sleep 1;
 eval killall Dock; $sleep 3;
 $clear
 #launches external terminal to retry dock reorg
-osascript -e 'tell app "Terminal"
-    do script "bash ~/Desktop/Install/dock.command"
-end tell'
+#osascript -e 'tell app "Terminal"
+ #   do script "bash ~/Desktop/Install/dock.command"
+#end tell'
 #kill spinner
 kill -9 $SPIN_PID;
 #superuser reboot if required
