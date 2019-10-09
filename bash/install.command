@@ -32,7 +32,7 @@ spin()
 clear="eval clear"
 sleep="/bin/sleep"
 rate="eval defaults write -g"
-lyelladmin="sudo dscl . create /Users/lyelladmin"
+admin="sudo dscl . create /Users/lyelladmin"
 brew="/usr/local/bin/brew install"
 cask="/usr/local/bin/brew install cask"
 dockutil="/usr/local/bin/dockutil"
@@ -105,14 +105,14 @@ if [[ $(dscl . list /Users) =~ "lyelladmin" ]]; then
     echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; $sleep 1;
 else
     . /etc/rc.common
-    $lyelladmin
-    $lyelladmin RealName "Lyell Admin"
-    $lyelladmin hint ""
-    $lyelladmin picture "/Library/User Pictures/Nature/Earth.png"
-    $lyelladmin UniqueID $NextID
-    $lyelladmin PrimaryGroupID 80
-    $lyelladmin UserShell /bin/bash
-    $lyelladmin NFSHomeDirectory /Users/lyelladmin
+    $admin
+    $admin RealName "Lyell Admin"
+    $admin hint ""
+    $admin picture "/Library/User Pictures/Nature/Earth.png"
+    $admin UniqueID $NextID
+    $admin PrimaryGroupID 80
+    $admin UserShell /bin/bash
+    $admin NFSHomeDirectory /Users/lyelladmin
     sudo dscl . passwd /Users/lyelladmin 2wsx^YHN
     sudo cp -R /System/Library/User\ Template/English.lproj /Users/lyelladmin
     sudo chown -R lyelladmin:staff /Users/lyelladmin
