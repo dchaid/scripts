@@ -1,4 +1,5 @@
 #!/bin/bash
+# ! /bin/zsh -- use this if using catalina (10.16)
 #*******************************************************************************
 #---Creation date: Aug. 21, 2019
 #---Last Modified: October 9, 2019
