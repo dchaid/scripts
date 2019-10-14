@@ -6,7 +6,7 @@
 #---Description: Adds Lyell admin account, installs homebrew, MS Office,enables 
 #---firewall, mods cursor rate, installs sophos, adds dock icons, runs macOS 
 #---Software Update, adds meraki mdm. Automatically reboots. Installs inSync, 
-#---Xerox Software drivers, Box Notes, MerakiPCC.
+#---Xerox Software drivers, Box Notes, MerakiPCC, default browser Chrome
 
 #---NOTE: External Drive MUST be labled as 'lyelldrive' with INSTALLS folder 
 #---located at ROOT Level...
@@ -38,6 +38,7 @@ admin="sudo dscl . create /Users/lyelladmin"
 brew="/usr/local/bin/brew install"
 cask="/usr/local/bin/brew cask install"
 dockutil="/usr/local/bin/dockutil"
+browser="/usr/local/bin/defaultbrowser"
 x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
@@ -140,9 +141,12 @@ $clear
 #install homebrew
 echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 1;
 $brew cask;
+$brew bash;
 $brew dockutil;
+$brew defaultbrowser;
 #install brew casks
 $cask 1password;
+$cask adobe-acrobat-reader;
 $cask atom;
 $cask box-drive;
 $cask firefox;
@@ -182,6 +186,8 @@ kill -9 $SPIN_PID;
 #superuser reboot if required
 sudo -v;
 $clear
+echo "SET DEFAULT BROWSER TO CHROME..."; $sleep 2;
+$browser chrome
 echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 10 MINUTES..."; $sleep 3;
 echo "ALLOW SOFTWARE UPDATE TO COMPLETE IF POSSIBLE..."; $sleep 800;
 sudo reboot
