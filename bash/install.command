@@ -144,14 +144,18 @@ else
     brew update;
 fi
 $sleep 2;
+sudo chmod 777 /usr/local/share/man/man1;
+sudo chmod 777 /usr/local/share/man/man8;
 sudo chown -R "$(whoami)" /usr/local/share/man/;
 sudo chown -R "$(whoami)" /usr/local/share/man/man1;
 sudo chown -R "$(whoami)" /usr/local/share/man/man8;
-echo "CHANGING OWNERSHIP OF BREW..."; $sleep 1;
-echo "CHANGING PERMISSIONS FOR BREW..."; $sleep 1;
+sudo chmod 777 /usr/local/share/man/man1;
+sudo chmod 777 /usr/local/share/man/man8;
 $clear
 #install homebrew
 echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 1;
+sudo chmod 777 /usr/local/share/man/man1;
+sudo chmod 777 /usr/local/share/man/man8;
 $brew cask;
 $brew bash;
 $brew dockutil;
