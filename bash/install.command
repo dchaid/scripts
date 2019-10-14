@@ -192,7 +192,7 @@ sudo -v;
 $clear
 echo "SET DEFAULT BROWSER TO CHROME..."; $sleep 2;
 $browser chrome
-echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 10 MINUTES..."; $sleep 3;
+echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 10 MINUTES..."; $sleep 2;
 echo "ALLOW SOFTWARE UPDATE TO COMPLETE IF POSSIBLE..."; $sleep 800;
 sudo reboot
 exit 0
