@@ -66,7 +66,12 @@ $rate NSTextInsertionPointBlinkPeriodOn -float 200;
 $rate NSTextInsertionPointBlinkPeriodOff -float 200;
 $rate InitialKeyRepeat -int 15;
 $rate KeyRepeat -int 2;
-#hostname rename prompt
+#mdm install
+echo "STARTING MERAKI INSTALLER..."; sleep 1;
+open 'https://m.meraki.com/mdm/';
+echo '151-643-0130' | pbcopy;
+echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 5;
+#new hostname
 echo "PLEASE ENTER NEW HOSTNAME....LYMAC1XX..."; sleep 2;
 function machinename() {
     osascript <<EOT
@@ -91,8 +96,7 @@ echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP..."; $sleep 1;
 echo "ADMIN PASSWORD COPIED TO CLIPBOARD..."; $sleep 1;
 install="open /Volumes/lyelldrive/INSTALLS/"
 installers=("InstallBoxTools.app" "inSync.mpkg" "MerakiPCCAgent.pkg" 
-"Microsoft_Office.pkg" "SophosInstaller.app" "XeroxPrintDriver.pkg" 
-"mdm.mobileconfig")
+"Microsoft_Office.pkg" "SophosInstaller.app" "XeroxPrintDriver.pkg")
 for app in "${installers[@]}"
 do
     eval "$install"\$app;
