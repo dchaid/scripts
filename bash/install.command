@@ -57,13 +57,6 @@ trap 'kill -9 $SPIN_PID' $(seq 0 15)
 echo "STARTING INSTALLATION..."; $sleep 1;
 #silently check for macOS software updates — runs in background...
 sudo softwareupdate -i -a >/dev/null 2>&1 &
-sudo mkdir /usr/local/share/man/man1;
-sudo mkdir /usr/local/share/man/man8;
-sudo chown -R "$(whoami)" /usr/local/share/man/;
-sudo chown -R "$(whoami)" /usr/local/share/man/man1;
-sudo chown -R "$(whoami)" /usr/local/share/man/man8;
-sudo chmod 777 /usr/local/share/man/man1;
-sudo chmod 777 /usr/local/share/man/man8;
 #enable firewall
 echo "ENABLING FIREWALL..."; $sleep 1;
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
