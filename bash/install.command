@@ -137,10 +137,14 @@ else
     brew update;
 fi
 $sleep 2;
+sudo chown -R "$(whoami)" /usr/local/share/man/;
+sudo chown -R "$(whoami)" /usr/local/share/man/man1;
 sudo chown -R "$(whoami)" /usr/local/share/man/man8;
-echo "CHANGING OWNERSHIP OF /usr/local/share/man/man8..."; $sleep 1;
+echo "CHANGING OWNERSHIP OF BREW..."; $sleep 1;
+sudo chmod u+w /usr/local/share/man/;
+sudo chmod u+w /usr/local/share/man/man1;
 sudo chmod u+w /usr/local/share/man/man8;
-echo "CHANGING PERMISSIONS OF /usr/local/share/man/man8"; $sleep 1;
+echo "CHANGING PERMISSIONS FOR BREW..."; $sleep 1;
 $clear
 #install homebrew
 echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 1;
@@ -159,10 +163,6 @@ $cask java;
 $cask slack;
 $cask zoomus;
 $clear
-sudo chown -R "$(whoami)" /usr/local/share/man/man8;
-echo "CHANGING OWNERSHIP OF /usr/local/share/man/man8..."; $sleep 1;
-sudo chmod u+w /usr/local/share/man/man8;
-echo "CHANGING PERMISSIONS OF /usr/local/share/man/man8"; $sleep 1;
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS..."; $sleep 1;
 $brew install dockutil ; $sleep 3;
