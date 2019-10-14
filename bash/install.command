@@ -1,6 +1,6 @@
 #!/bin/bash
 # ! /bin/zsh -- use this if using catalina (10.16)
-#*******************************************************************************
+#***************************************************************************************************************
 #---Creation date: Aug. 21, 2019
 #---Last Modified: October 9, 2019
 #---Description: Adds Lyell admin account, installs homebrew, MS Office,enables 
@@ -14,7 +14,7 @@
 #Box Notes.app, Box.pkg, InstallBoxTools.app, MerakiPCCAgent.pkg, 
 #Microsoft_Office.pkg, Sophos\ Installer Components, SophosInstaller.app, 
 #XeroxPrintDriver.pkg, Zoom.pkg, inSync.mpkg, meraki_sm_mdm.mobileconfig
-#*******************************************************************************
+#***************************************************************************************************************
 spin()
 {
   spinner="/|\\—/|\\—"
