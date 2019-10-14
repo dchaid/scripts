@@ -150,6 +150,8 @@ echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 1;
 sudo chmod 777 /usr/local/share/man/man1;
 sudo chmod 777 /usr/local/share/man/man8;
 $brew cask;
+sudo chmod 777 /usr/local/share/man/man1;
+sudo chmod 777 /usr/local/share/man/man8;
 $brew bash;
 $brew dockutil;
 $brew defaultbrowser;
