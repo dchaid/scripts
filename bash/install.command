@@ -71,7 +71,7 @@ function machinename() {
     osascript <<EOT
         tell application "Finder"
             activate
-            set nameentry to text returned of (display dialog "Please Input New Hostname" default answer "" with icon 2)
+            set nameentry to text returned of (display dialog "hostname" default answer "" with icon 2)
             end tell
 EOT
 }
