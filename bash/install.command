@@ -28,11 +28,11 @@ spin()
     done
   done
 }
-
+#***************************************************************************************************************
 #aliases
-clear="eval clear"
+clear="eval /usr/bin/clear"
 sleep="/bin/sleep"
-rate="eval defaults write -g"
+rate="/usr/bin/defaults write -g"
 scutil="sudo scutil --set"
 admin="sudo dscl . create /Users/lyelladmin"
 brew="/usr/local/bin/brew install"
@@ -42,7 +42,7 @@ x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
 f="$x"$y
-
+#***************************************************************************************************************
 #Resize terminal window
 printf '\e[8;65;170t'
 #user to enter sudo password to start
@@ -66,23 +66,21 @@ $rate NSTextInsertionPointBlinkPeriodOff -float 200;
 $rate InitialKeyRepeat -int 15;
 $rate KeyRepeat -int 2;
 #hostname rename prompt
-echo "PLEASE ENTER NEW HOSTNAME....LYMAC1XX..."; $sleep 1;
+echo "PLEASE ENTER NEW HOSTNAME....LYMAC1XX..."; sleep 2;
 function machinename() {
     osascript <<EOT
         tell application "Finder"
             activate
-            set nameentry to text returned of 
-            (display dialog "Please Input New Hostname" 
-            default answer "" with icon 2)
+            set nameentry to text returned of (display dialog "Please Input New Hostname" default answer "" with icon 2)
             end tell
 EOT
 }
 function renameComputer() {
-    echo "NEW HOSTNAME: $ComputerName"; $sleep 1;
+    echo "NEW HOSTNAME: $ComputerName"; sleep 1;
     $scutil HostName "$ComputerName";
     $scutil LocalHostName "$ComputerName";
     $scutil ComputerName "$ComputerName";
-    echo "RENAME SUCCESSFUL..."; $sleep 1;
+    echo "RENAME SUCCESSFUL..."; sleep 1;
 }
 ComputerName=$(machinename)
 renameComputer;

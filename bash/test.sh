@@ -1,17 +1,10 @@
 #!/bin/bash
+sleep="/bin/sleep"
+rate="/usr/bin/defaults write -g"
+echo "MODIFYING CURSOR REPEAT RATE..."; $sleep 1;
+$rate NSTextInsertionPointBlinkPeriodOn -float 200;
+$rate NSTextInsertionPointBlinkPeriodOff -float 200;
+$rate InitialKeyRepeat -int 15;
+$rate KeyRepeat -int 2;
 
-install="open /Volumes/lyelldrive/INSTALLS/"
-installers=(
-    "InstallBoxTools.app"
-    "inSync.mpkg"
-    "MerakiPCCAgent.pkg"
-    "Microsoft_Office.pkg"
-    "SophosInstaller.app"
-    "XeroxPrintDriver.pkg"
-    "mdm.mobileconfig"
-)
-
-for app in "${installers[@]}"
-do
-    eval $install\$app;
-done
+exit 0
