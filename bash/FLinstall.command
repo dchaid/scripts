@@ -1,17 +1,7 @@
 #!/bin/bash
 #***************************************************************************************************************
-#---Creation date: Aug. 21, 2019
-#---Description: Adds Lyell admin account, installs homebrew, MS Office,enables 
-#---firewall, mods cursor rate, installs sophos, adds dock icons, runs macOS 
-#---Software Update, adds meraki mdm. Automatically reboots. Installs inSync, 
-#---Xerox Software drivers, Box Notes, MerakiPCC, default browser Chrome
-
-#---NOTE: External Drive MUST be labled as 'lyelldrive' with INSTALLS folder 
-#---located at ROOT Level...
-#/lyelldrive/INSTALLS/ Contents:
-#Box Notes.app, Box.pkg, InstallBoxTools.app, MerakiPCCAgent.pkg, 
-#Microsoft_Office.pkg, Sophos\ Installer Components, SophosInstaller.app, 
-#XeroxPrintDriver.pkg, Zoom.pkg, inSync.mpkg, meraki_sm_mdm.mobileconfig
+#---Creation date: October 16, 2019
+#---Description: Adds Forsite admin account, installs homebrew
 #***************************************************************************************************************
 spin()
 {
@@ -32,7 +22,7 @@ clear="eval /usr/bin/clear"
 sleep="/bin/sleep"
 rate="/usr/bin/defaults write -g"
 scutil="sudo scutil --set"
-admin="sudo dscl . create /Users/lyelladmin"
+admin="sudo dscl . create /Users/FLadmin"
 brew="brew install"
 cask="/usr/local/bin/brew cask install"
 dockutil="/usr/local/bin/dockutil"
@@ -42,10 +32,17 @@ y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString<
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
 f="$x"$y
 #***************************************************************************************************************
+function buffer() {
+    echo ".";
+    echo ".";
+    echo ".";
+    echo ".";
+}
 #Resize terminal window
 printf '\e[8;65;170t'
 #user to enter sudo password to start
 echo "PLEASE ENTER ADMIN PASSWORD TO EXECUTE SCRIPT...";
+buffer;
 sudo -v
 # Start the Spinner + Make a note of its Process ID (PID)
 spin &
@@ -53,6 +50,7 @@ SPIN_PID=$!
 trap 'kill -9 $SPIN_PID' $(seq 0 15)
 #script start
 echo "STARTING INSTALLATION..."; $sleep 1;
+buffer;
 #silently check for macOS software updates — runs in background...
 sudo softwareupdate -i -a >/dev/null 2>&1 &
 #enable firewall
@@ -64,18 +62,13 @@ $rate NSTextInsertionPointBlinkPeriodOn -float 200;
 $rate NSTextInsertionPointBlinkPeriodOff -float 200;
 $rate InitialKeyRepeat -int 15;
 $rate KeyRepeat -int 2;
-#mdm install
-echo "STARTING MERAKI INSTALLER..."; sleep 1;
-open 'https://m.meraki.com/mdm/';
-echo '151-643-0130' | pbcopy;
-echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 5;
 #new hostname
-echo "PLEASE ENTER NEW HOSTNAME....LYMAC1XX..."; sleep 2;
+echo "PLEASE ENTER NEW HOSTNAME....FL0XX..."; sleep 2;
 function machinename() {
     osascript <<EOT
         tell application "Finder"
             activate
-            set nameentry to text returned of (display dialog "hostname" default answer "LYMAC1XX" with icon 2)
+            set nameentry to text returned of (display dialog "hostname" default answer "FL0XX" with icon 2)
             end tell
 EOT
 }
@@ -89,36 +82,34 @@ function renameComputer() {
 ComputerName=$(machinename)
 renameComputer;
 #opening all installers
-echo 'Welcome2Lyell!' | pbcopy;
+echo 'Welcome2ForesiteLabs!' | pbcopy;
 echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP..."; $sleep 1;
 echo "ADMIN PASSWORD COPIED TO CLIPBOARD..."; $sleep 1;
-install="open /Volumes/lyelldrive/INSTALLS/"
-installers=("InstallBoxTools.app" "inSync.mpkg" "MerakiPCCAgent.pkg" 
-"Microsoft_Office.pkg" "SophosInstaller.app" "XeroxPrintDriver.pkg")
+install="open /Volumes/lyelldrive/foresite/INSTALLS/"
+installers=("SophosInstaller.app")
 for app in "${installers[@]}"
 do
     eval "$install"\$app;
 done
-eval cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app /Applications/;
 #admin account creation: checks last userID used and uses next available
 echo "CREATING ADMIN ACCOUNT..."; $sleep 1;
 LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
 NextID=$((LastID + 1))
-if [[ $(dscl . list /Users) =~ "lyelladmin" ]]; then
+if [[ $(dscl . list /Users) =~ "FLadmin" ]]; then
     echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; $sleep 1;
 else
     . /etc/rc.common
     $admin
-    $admin RealName "Lyell Admin"
+    $admin RealName "FLAdmin"
     $admin hint ""
     $admin picture "/Library/User Pictures/Nature/Earth.png"
     $admin UniqueID $NextID
     $admin PrimaryGroupID 80
     $admin UserShell /bin/bash
-    $admin NFSHomeDirectory /Users/lyelladmin
-    sudo dscl . passwd /Users/lyelladmin 2wsx^YHN
-    sudo cp -R /System/Library/User\ Template/English.lproj /Users/lyelladmin
-    sudo chown -R lyelladmin:staff /Users/lyelladmin
+    $admin NFSHomeDirectory /Users/FLadmin
+    sudo dscl . passwd /Users/FLadmin 4siteLabs!
+    sudo cp -R /System/Library/User\ Template/English.lproj /Users/FLadmin
+    sudo chown -R FLadmin:staff /Users/FLadmin
     echo "ADMIN ACCOUNT CREATED..."; $sleep 2;
 fi
 $clear
@@ -134,7 +125,7 @@ else
     echo "HOMEBREW SUCCESSFULLY INSTALLED..."
     brew update;
 fi
-$sleep 2;
+$sleep 10;
 function man_chmod() {
     sudo chown -R "$(whoami)" /usr/local/share/man/; echo ".";
     sudo chown -R "$(whoami)" /usr/local/share/man/man1; echo ".";
@@ -146,20 +137,17 @@ man_chmod;
 $clear
 #install homebrew
 echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 1; man_chmod;
+brew="brew install";
 $brew cask; man_chmod;
 $brew bash; man_chmod;
 $brew dockutil; man_chmod;
 $brew defaultbrowser; man_chmod;
 #install brew casks
-$cask 1password;
-$cask adobe-acrobat-reader;
 $cask atom;
-$cask box-drive;
 $cask firefox;
 $cask google-chrome;
 $cask java;
 $cask slack;
-$cask zoomus;
 $clear
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS..."; $sleep 1;
@@ -168,9 +156,8 @@ eval killall cfprefsd; $sleep 3;
 sudo $dockutil --remove all; $sleep 5;
 #add items to dock -- re-add dock util if not installed prior
 echo "ADDING DOCK ICONS..."; $sleep 3;
-apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app" 
-"Microsoft Outlook.app"  "Microsoft Word.app" "Microsoft Excel.app" 
-"System Preferences.app" "zoom.us.app")
+apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" 
+"Slack.app" "System Preferences.app")
 for app in "${apps[@]}"
 do
     eval "$f"\$app$z;
@@ -195,6 +182,12 @@ sudo -v;
 $clear
 echo "SETTING DEFAULT BROWSER TO CHROME...";
 $browser chrome
+echo "ENABLING FILEVAULT..." sleep 1;
+sudo fdesetup enable; sleep 1;
+echo "TO DISPLAY KEY ENTER:";
+echo "sudo fdesetup changerecovery -personal"; 
+echo "THEN ENTER USERNAME AND PASSWORD..."
+buffer;
 echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 10 MINUTES..."; $sleep 2;
 echo "ALLOW SOFTWARE UPDATE TO COMPLETE IF POSSIBLE..."; $sleep 800;
 sudo reboot

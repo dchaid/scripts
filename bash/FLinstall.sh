@@ -1,17 +1,7 @@
 #!/bin/bash
 #***************************************************************************************************************
-#---Creation date: Aug. 21, 2019
-#---Description: Adds Lyell admin account, installs homebrew, MS Office,enables 
-#---firewall, mods cursor rate, installs sophos, adds dock icons, runs macOS 
-#---Software Update, adds meraki mdm. Automatically reboots. Installs inSync, 
-#---Xerox Software drivers, Box Notes, MerakiPCC, default browser Chrome
-
-#---NOTE: External Drive MUST be labled as 'lyelldrive' with INSTALLS folder 
-#---located at ROOT Level...
-#/lyelldrive/INSTALLS/ Contents:
-#Box Notes.app, Box.pkg, InstallBoxTools.app, MerakiPCCAgent.pkg, 
-#Microsoft_Office.pkg, Sophos\ Installer Components, SophosInstaller.app, 
-#XeroxPrintDriver.pkg, Zoom.pkg, inSync.mpkg, meraki_sm_mdm.mobileconfig
+#---Creation date: October 16, 2019
+#---Description: Adds Forsite admin account, installs homebrew
 #***************************************************************************************************************
 spin()
 {
@@ -32,7 +22,7 @@ clear="eval /usr/bin/clear"
 sleep="/bin/sleep"
 rate="/usr/bin/defaults write -g"
 scutil="sudo scutil --set"
-admin="sudo dscl . create /Users/lyelladmin"
+admin="sudo dscl . create /Users/FLadmin"
 brew="brew install"
 cask="/usr/local/bin/brew cask install"
 dockutil="/usr/local/bin/dockutil"
@@ -75,7 +65,7 @@ function machinename() {
     osascript <<EOT
         tell application "Finder"
             activate
-            set nameentry to text returned of (display dialog "hostname" default answer "LYMAC1XX" with icon 2)
+            set nameentry to text returned of (display dialog "hostname" default answer "" with icon 2)
             end tell
 EOT
 }
@@ -89,10 +79,10 @@ function renameComputer() {
 ComputerName=$(machinename)
 renameComputer;
 #opening all installers
-echo 'Welcome2Lyell!' | pbcopy;
+echo 'Welcome2ForesiteLabs!' | pbcopy;
 echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP..."; $sleep 1;
 echo "ADMIN PASSWORD COPIED TO CLIPBOARD..."; $sleep 1;
-install="open /Volumes/lyelldrive/INSTALLS/"
+install="open /Volumes/lyelldrive/foresite/INSTALLS/"
 installers=("InstallBoxTools.app" "inSync.mpkg" "MerakiPCCAgent.pkg" 
 "Microsoft_Office.pkg" "SophosInstaller.app" "XeroxPrintDriver.pkg")
 for app in "${installers[@]}"
@@ -109,16 +99,16 @@ if [[ $(dscl . list /Users) =~ "lyelladmin" ]]; then
 else
     . /etc/rc.common
     $admin
-    $admin RealName "Lyell Admin"
+    $admin RealName "FLAdmin"
     $admin hint ""
     $admin picture "/Library/User Pictures/Nature/Earth.png"
     $admin UniqueID $NextID
     $admin PrimaryGroupID 80
     $admin UserShell /bin/bash
-    $admin NFSHomeDirectory /Users/lyelladmin
-    sudo dscl . passwd /Users/lyelladmin 2wsx^YHN
-    sudo cp -R /System/Library/User\ Template/English.lproj /Users/lyelladmin
-    sudo chown -R lyelladmin:staff /Users/lyelladmin
+    $admin NFSHomeDirectory /Users/FLadmin
+    sudo dscl . passwd /Users/FLadmin 4siteLabs!
+    sudo cp -R /System/Library/User\ Template/English.lproj /Users/FLadmin
+    sudo chown -R FLadmin:staff /Users/FLadmin
     echo "ADMIN ACCOUNT CREATED..."; $sleep 2;
 fi
 $clear
