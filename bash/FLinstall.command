@@ -125,9 +125,9 @@ else
     echo "HOMEBREW SUCCESSFULLY INSTALLED..."
     brew update;
 fi
-$sleep 10;
-sudo mkdir /usr/local/share/man/man1;
-sudo mkdir /usr/local/share/man/man8;
+$sleep 3;
+sudo mkdir -p /usr/local/share/man/man1;
+sudo mkdir -p /usr/local/share/man/man8;
 function man_chmod() {
     sudo chown -R "$(whoami)" /usr/local/share/man/; echo ".";
     sudo chown -R "$(whoami)" /usr/local/share/man/man1; echo ".";
@@ -138,7 +138,7 @@ function man_chmod() {
 man_chmod;
 $clear
 #install homebrew
-echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 10; man_chmod;
+echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 3; man_chmod;
 $brew cask; man_chmod;
 $brew bash; man_chmod;
 $brew dockutil; man_chmod;
