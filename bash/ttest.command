@@ -14,18 +14,8 @@ y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString<
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
 f="$x"$y
 
-function man_chmod() {
-    sudo chown -R "$(whoami)" /usr/local/share/man/; echo ".";
-    sudo chown -R "$(whoami)" /usr/local/share/man/man1; echo ".";
-    sudo chown -R "$(whoami)" /usr/local/share/man/man8; echo ".";
-    sudo chmod 777 /usr/local/share/man/man1; echo ".";
-    sudo chmod 777 /usr/local/share/man/man8; echo ".";
-}
-man_chmod;
-$clear
-#install homebrew
-echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 1; man_chmod;
-$brew cask; man_chmod;
-$brew bash; man_chmod;
-$brew dockutil; man_chmod;
-$brew defaultbrowser; man_chmod;
+
+sudo mkdir /usr/local/share/man/man11;
+sudo mkdir /usr/local/share/man/man81;
+
+exit 0
