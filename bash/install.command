@@ -135,6 +135,8 @@ else
     brew update;
 fi
 $sleep 2;
+sudo mkdir -p /usr/local/share/man/man1;
+sudo mkdir -p /usr/local/share/man/man8;
 function man_chmod() {
     sudo chown -R "$(whoami)" /usr/local/share/man/; echo ".";
     sudo chown -R "$(whoami)" /usr/local/share/man/man1; echo ".";
