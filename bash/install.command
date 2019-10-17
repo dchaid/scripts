@@ -165,7 +165,6 @@ $cask zoomus;
 $clear
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS..."; $sleep 1;
-$brew dockutil ; $sleep 3;
 eval killall cfprefsd; $sleep 3;
 sudo $dockutil --remove all; $sleep 5;
 #add items to dock -- re-add dock util if not installed prior
