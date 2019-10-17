@@ -38,7 +38,7 @@ cask="/usr/local/bin/brew cask install"
 dockutil="/usr/local/bin/dockutil"
 browser="/usr/local/bin/defaultbrowser"
 x="sudo $dockutil --add /Applications/"
-y=" --no-restart"
+y="--no-restart"
 #***************************************************************************************************************
 #Resize terminal window
 printf '\e[8;65;170t'
@@ -170,7 +170,7 @@ apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app"
 "System Preferences.app" "zoom.us.app")
 for app in "${apps[@]}"
 do
-    eval $x$app$y;
+    eval $x$app $y;
 done
 killall Dock;
 function lock_chmod(){
