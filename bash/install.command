@@ -170,7 +170,7 @@ apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app"
 "System Preferences.app" "zoom.us.app")
 for app in "${apps[@]}"
 do
-    eval "$x"\$app$y;
+    eval $x$app$y;
 done
 killall Dock;
 function lock_chmod(){
