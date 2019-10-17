@@ -36,16 +36,16 @@ spin()
 ###############################################################################
 # Aliases                                                                     #
 ###############################################################################
-bright="osascript -e 'tell application "System Events"' -e 'key code 145' -e ' end tell'"
-clear="eval /usr/bin/clear"
-sleep="/bin/sleep"
-rate="/usr/bin/defaults write -g"
-scutil="sudo scutil --set"
 admin="sudo dscl . create /Users/lyelladmin"
 brew="/usr/local/bin/brew install"
-cask="/usr/local/bin/brew cask install"
-dockutil="/usr/local/bin/dockutil"
+bright="osascript -e 'tell application \"System Events\"' -e 'key code 145' -e ' end tell'"
 browser="/usr/local/bin/defaultbrowser"
+cask="/usr/local/bin/brew cask install"
+clear="eval /usr/bin/clear"
+dockutil="/usr/local/bin/dockutil"
+rate="/usr/bin/defaults write -g"
+scutil="sudo scutil --set"
+sleep="/bin/sleep"
 x="sudo $dockutil --add /Applications/"
 y="--no-restart"
 
