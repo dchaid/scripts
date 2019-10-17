@@ -179,10 +179,6 @@ function lock_chmod(){
 }
 $clear
 lock_chmod;
-#launches external terminal to retry dock reorg
-#osascript -e 'tell app "Terminal"
- #   do script "bash ~/Desktop/Install/dock.command"
-#end tell'
 #kill spinner
 kill -9 $SPIN_PID;
 #superuser reboot if required
