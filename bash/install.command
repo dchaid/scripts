@@ -1,5 +1,9 @@
 #!/bin/bash
-#***************************************************************************************************************
+
+###############################################################################
+# Description                                                               #
+###############################################################################
+#---Version: 1.0
 #---Creation date: Aug. 21, 2019
 #---Description: Adds Lyell admin account, installs homebrew, MS Office,enables 
 #---firewall, mods cursor rate, installs sophos, adds dock icons, runs macOS 
@@ -12,22 +16,21 @@
 #Box Notes.app, Box.pkg, InstallBoxTools.app, MerakiPCCAgent.pkg, 
 #Microsoft_Office.pkg, Sophos\ Installer Components, SophosInstaller.app, 
 #XeroxPrintDriver.pkg, Zoom.pkg, inSync.mpkg, meraki_sm_mdm.mobileconfig
+
 #***************************************************************************************************************
-spin()
-{
-  spinner="/|\\—/|\\—"
-  while :
-  do
-    for i in $(seq 0 7)
-    do
-      echo -n "${spinner:$i:1}"
-      echo -en "\010"
-      $sleep .06
+spin(){
+spinner="/|\\—/|\\—" while : do for i in $(seq 0 7) do
+    echo -n "${spinner:$i:1}"
+    echo -en "\010" $sleep .06
     done
-  done
+done
 }
 #***************************************************************************************************************
-#aliases
+
+###############################################################################
+# Aliases                                                                     #
+###############################################################################
+bright="osascript -e 'tell application "System Events"' -e 'key code 145' -e ' end tell'"
 clear="eval /usr/bin/clear"
 sleep="/bin/sleep"
 rate="/usr/bin/defaults write -g"
@@ -39,30 +42,56 @@ dockutil="/usr/local/bin/dockutil"
 browser="/usr/local/bin/defaultbrowser"
 x="sudo $dockutil --add /Applications/"
 y="--no-restart"
-#***************************************************************************************************************
+
+###############################################################################
+# Script                                                                     #
+###############################################################################
 #Resize terminal window
 printf '\e[8;65;170t'
+
 #user to enter sudo password to start
 echo "PLEASE ENTER ADMIN PASSWORD TO EXECUTE SCRIPT...";
 sudo -v
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+$bright; $bright; $bright; $bright; $bright; 
+
 # Start the Spinner + Make a note of its Process ID (PID)
 spin &
 SPIN_PID=$!
 trap 'kill -9 $SPIN_PID' $(seq 0 15)
+
 #script start
 echo "STARTING INSTALLATION..."; $sleep 1;
-#silently check for macOS software updates — runs in background...
+
+#silently check for macOS software updates — runs in background...sets no sleep
 sudo softwareupdate -i -a >/dev/null 2>&1 &
-sudo pmset -a displaysleep 0 disksleep 0 sleep 0
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1;
+defaults write com.apple.gamed Disabled -bool true;
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true;
+sudo pmset -a hibernatemode 0;
+sudo pmset halfdim 0;
+sudo pmset -a displaysleep 0 disksleep 0 sleep 0;
+sudo systemsetup -setcomputersleep Never;
+sudo systemsetup -setdisplaysleep Never;
+
 #enable firewall
 echo "ENABLING FIREWALL..."; $sleep 1;
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
+
 #set key repeat rate and cursor blink
 echo "MODIFYING CURSOR REPEAT RATE..."; $sleep 1;
 $rate NSTextInsertionPointBlinkPeriodOn -float 200;
 $rate NSTextInsertionPointBlinkPeriodOff -float 200;
 $rate InitialKeyRepeat -int 15;
 $rate KeyRepeat -int 2;
+$rate NSAutomaticSpellingCorrectionEnabled -bool false;
+$rate ApplePressAndHoldEnabled -bool false;
+$rate NSAutomaticCapitalizationEnabled -bool false;
+$rate NSAutomaticPeriodSubstitutionEnabled -bool false;
+$rate NSAutomaticDashSubstitutionEnabled -bool false;
+$rate NSAutomaticQuoteSubstitutionEnabled -bool false;
+defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false;
+
 #mdm install
 echo "STARTING MERAKI INSTALLER..."; sleep 1;
 open 'https://m.meraki.com/mdm/';
@@ -87,6 +116,7 @@ function renameComputer() {
 }
 ComputerName=$(machinename)
 renameComputer;
+
 #opening all installers
 echo 'Welcome2Lyell!' | pbcopy;
 echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP..."; $sleep 1;
@@ -99,6 +129,7 @@ do
     eval "$install"\$app;
 done
 eval cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app/Applications/;
+
 #admin account creation: checks last userID used and uses next available
 echo "CREATING ADMIN ACCOUNT..."; $sleep 1;
 LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
@@ -121,6 +152,11 @@ else
     echo "ADMIN ACCOUNT CREATED..."; $sleep 2;
 fi
 $clear
+
+#Installing XCode Command Line Tools
+printf "Installing XCode CL tools...\n"
+xcode-select --install
+
 #install homebrew
 echo "INSTALLING HOMEBREW..."; $sleep 1;
 yes '' | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
@@ -145,12 +181,14 @@ function man_chmod() {
 }
 man_chmod;
 $clear
+
 #install homebrew
 echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 1; man_chmod;
 $brew cask; man_chmod;
 $brew bash; man_chmod;
 $brew dockutil; man_chmod;
 $brew defaultbrowser; man_chmod;
+
 #install brew casks
 $cask 1password;
 $cask adobe-acrobat-reader;
@@ -162,6 +200,7 @@ $cask java;
 $cask slack;
 $cask zoomus;
 $clear
+
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS..."; $sleep 1;
 eval killall cfprefsd; $sleep 1;
@@ -181,15 +220,19 @@ function lock_chmod(){
 }
 $clear
 lock_chmod;
+
 #kill spinner
 kill -9 $SPIN_PID;
+
 #superuser reboot if required
 sudo -v;
 $clear
 echo "SETTING DEFAULT BROWSER TO CHROME...";
 $browser chrome
 sudo -v
-echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 90 SECONDS..."; $sleep 2;
-echo "ALLOW SOFTWARE UPDATE TO COMPLETE IF POSSIBLE..."; $sleep 88;
-sudo reboot
+echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 30 SECONDS..."; $sleep 2;
+echo "ALLOW SOFTWARE UPDATE TO COMPLETE IF POSSIBLE..."; $sleep 28;
+
+sudo shutdown -r +1
+
 exit 0
