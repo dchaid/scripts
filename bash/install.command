@@ -38,7 +38,6 @@ spin()
 ###############################################################################
 admin="sudo dscl . create /Users/lyelladmin"
 brew="/usr/local/bin/brew install"
-bright="osascript -e 'tell application \"System Events\"' -e 'key code 145' -e ' end tell'"
 browser="/usr/local/bin/defaultbrowser"
 cask="/usr/local/bin/brew cask install"
 clear="eval /usr/bin/clear"
@@ -59,7 +58,6 @@ printf '\e[8;65;170t'
 echo "PLEASE ENTER ADMIN PASSWORD TO EXECUTE SCRIPT...";
 sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-$bright; $bright; $bright; $bright; $bright; 
 
 # Start the Spinner + Make a note of its Process ID (PID)
 spin &
