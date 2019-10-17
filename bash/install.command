@@ -227,11 +227,9 @@ lock_chmod;
 kill -9 $SPIN_PID;
 
 #superuser reboot if required
-sudo -v;
-$clear
 echo "SETTING DEFAULT BROWSER TO CHROME...";
 $browser chrome
-sudo -v
+
 echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 30 SECONDS..."; $sleep 2;
 echo "ALLOW SOFTWARE UPDATE TO COMPLETE IF POSSIBLE..."; $sleep 28;
 
