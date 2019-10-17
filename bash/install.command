@@ -97,7 +97,7 @@ for app in "${installers[@]}"
 do
     eval "$install"\$app;
 done
-eval cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app /Applications/;
+eval cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app/Applications/;
 #admin account creation: checks last userID used and uses next available
 echo "CREATING ADMIN ACCOUNT..."; $sleep 1;
 LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
