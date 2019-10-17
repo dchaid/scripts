@@ -103,6 +103,7 @@ echo "STARTING MERAKI INSTALLER..."; sleep 1;
 open 'https://m.meraki.com/mdm/';
 echo '151-643-0130' | pbcopy;
 echo "MERAKI MDM ID COPIED TO CLIPBOARD. PLEASE PASTE INTO BROWSER..."; sleep 5;
+
 #new hostname
 echo "PLEASE ENTER NEW HOSTNAME....LYMAC1XX..."; sleep 2;
 function machinename() {
@@ -134,7 +135,7 @@ for app in "${installers[@]}"
 do
     eval "$install"\$app;
 done
-eval cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app/Applications/;
+eval cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app/ /Applications/;
 
 #admin account creation: checks last userID used and uses next available
 echo "CREATING ADMIN ACCOUNT..."; $sleep 1;
@@ -159,10 +160,6 @@ else
 fi
 $clear
 
-#Installing XCode Command Line Tools
-printf "Installing XCode CL tools...\n"
-xcode-select --install
-
 #install homebrew
 echo "INSTALLING HOMEBREW..."; $sleep 1;
 yes '' | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
@@ -175,7 +172,8 @@ else
     echo "HOMEBREW SUCCESSFULLY INSTALLED..."
     brew update;
 fi
-$sleep 2;
+
+#mod man dir for smooth brew installs
 sudo mkdir -p /usr/local/share/man/man1;
 sudo mkdir -p /usr/local/share/man/man8;
 function man_chmod() {
@@ -197,8 +195,6 @@ $brew defaultbrowser; man_chmod;
 
 #install brew casks
 $cask 1password;
-$cask adobe-acrobat-reader;
-$cask atom;
 $cask box-drive;
 $cask firefox;
 $cask google-chrome;
