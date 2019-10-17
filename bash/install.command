@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ###############################################################################
-# Description                                                               #
+# Description                                                                 #
 ###############################################################################
 #---Version: 1.0
 #---Creation date: Aug. 21, 2019
@@ -17,7 +17,6 @@
 #Microsoft_Office.pkg, Sophos\ Installer Components, SophosInstaller.app, 
 #XeroxPrintDriver.pkg, Zoom.pkg, inSync.mpkg, meraki_sm_mdm.mobileconfig
 
-#***************************************************************************************************************
 spin()
 {
   spinner="/|\\—/|\\—"
@@ -31,7 +30,6 @@ spin()
     done
   done
 }
-#***************************************************************************************************************
 
 ###############################################################################
 # Aliases                                                                     #
@@ -214,6 +212,7 @@ do
     eval $x$app $y;
 done
 killall Dock;
+
 function lock_chmod(){
     sudo chmod 755 /usr/local/share/man/man1; echo "..";
     sudo chmod 755 /usr/local/share/man/man8; echo "..";
