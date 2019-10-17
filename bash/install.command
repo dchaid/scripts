@@ -18,14 +18,18 @@
 #XeroxPrintDriver.pkg, Zoom.pkg, inSync.mpkg, meraki_sm_mdm.mobileconfig
 
 #***************************************************************************************************************
-spin(){
-spinner="/|\\—/|\\—" 
-    while : 
-        do for i in $(seq 0 7) 
-            do echo -n "${spinner:$i:1}"
-            echo -en "\010" $sleep .06
-        done
+spin()
+{
+  spinner="/|\\—/|\\—"
+  while :
+  do
+    for i in $(seq 0 7)
+    do
+      echo -n "${spinner:$i:1}"
+      echo -en "\010"
+      $sleep .06
     done
+  done
 }
 #***************************************************************************************************************
 
