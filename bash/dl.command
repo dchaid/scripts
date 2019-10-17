@@ -1,7 +1,5 @@
 #!/bin/bash
-
 printf '\e[8;65;179t'
-
 echo "PLEASE ENTER ADMIN PASSWORD TO INSTALL..."
 sudo -v
 echo "CREATING BASH DIRECTORY...";
@@ -10,7 +8,6 @@ cd ~/Desktop/Install &&
 echo "DOWNLOADING INSTALL SCRIPT...";
 curl -sS https://raw.githubusercontent.com/dchaid/scripts/master/bash/install.command > install.command &&
 chmod a+x install.command ;
-
 echo "                                                                                                             ,,;;;;;;;;;;,"
 echo "                                                                                                          ,,;;;;;;;;;;;;;;;"
 echo "                                                                                                    ,,,;;;;;;;;,,;,,;;;;,,,,"
@@ -61,10 +58,7 @@ echo "         ..........     ..... .......   ....      ..                      
 echo; echo; echo;
 echo "                                                                           TIME TO STEAM SOME HAMS..."
 echo; echo; echo; sleep 2;
-
 osascript -e 'tell app "Terminal"
     do script "bash ~/Desktop/Install/install.command"
 end tell'
-
-
 exit 0
