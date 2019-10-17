@@ -177,7 +177,7 @@ sudo $dockutil --add /Applications/Microsoft\ Word.app --no-restart;
 sudo $dockutil --add /Applications/Microsoft\ Excel.app --no-restart;
 sudo $dockutil --add /Applications/System\ Preferences.app --no-restart;
 sudo $dockutil --add /Applications/zoom.us.app --no-restart;
-killal Dock;
+killall Dock;
 #add items to dock -- re-add dock util if not installed prior
 #echo "ADDING DOCK ICONS..."; $sleep 3;
 #apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app" 
