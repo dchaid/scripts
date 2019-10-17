@@ -53,6 +53,7 @@ trap 'kill -9 $SPIN_PID' $(seq 0 15)
 echo "STARTING INSTALLATION..."; $sleep 1;
 #silently check for macOS software updates — runs in background...
 sudo softwareupdate -i -a >/dev/null 2>&1 &
+sudo pmset -a displaysleep 0 disksleep 0 sleep 0
 #enable firewall
 echo "ENABLING FIREWALL..."; $sleep 1;
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
