@@ -136,7 +136,6 @@ $brew dockutil; man_chmod;
 $brew defaultbrowser; man_chmod;
 
 #install brew casks
-$cask 1password;
 $cask firefox;
 $cask google-chrome;
 $cask java;
