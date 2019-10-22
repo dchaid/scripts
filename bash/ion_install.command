@@ -5,7 +5,7 @@
 #Last Modified: October 22, 2019
 #Modified by: David Chaid
 #Modified for: IONPath
-#Updates Available at: https://github.com/dchaid/scripts/
+#Updates Available at: https://raw.githubusercontent.com/dchaid/scripts/master/bash/ion_install.command
 #Description: Connects to Ionpath-guest, adds admin account, installs hombrew,enables firewall,
 #mods cursor rate, adds dock icons, runs macOS Software Update, Automatically reboots.
 #*****************************************************************************************************************************
