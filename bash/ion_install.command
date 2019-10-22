@@ -10,6 +10,39 @@
 #mods cursor rate, adds dock icons, runs macOS Software Update, Automatically reboots.
 #*****************************************************************************************************************************
 
+spin()
+{
+  spinner="/|\\—/|\\—"
+  while :
+  do
+    for i in $(seq 0 7)
+    do
+      echo -n "${spinner:$i:1}"
+      echo -en "\010"
+      $sleep .06
+    done
+  done
+}
+
+###############################################################################
+# Aliases                                                                     #
+###############################################################################
+admin="sudo dscl . create /Users/admin.ion"
+brew="/usr/local/bin/brew install"
+browser="/usr/local/bin/defaultbrowser"
+cask="/usr/local/bin/brew cask install"
+clear="eval /usr/bin/clear"
+dockutil="/usr/local/bin/dockutil"
+rate="/usr/bin/defaults write -g"
+scutil="sudo scutil --set"
+sleep="/bin/sleep"
+x="sudo $dockutil --add /Applications/"
+y="--no-restart"
+
+###############################################################################
+# Script                                                                     #
+###############################################################################
+
 #Resize terminal window
 printf '\e[8;65;170t'
 
