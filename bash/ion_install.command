@@ -181,7 +181,7 @@ echo "REMOVING DOCK ICONS..."; $sleep 1;
 eval killall cfprefsd; $sleep 1;
 sudo $dockutil --remove all --no-restart; $sleep 1;
 echo "ADDING DOCK ICONS..."; $sleep 1;
-apps=("Google\ Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app" 
+apps=("Google\ Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app"
 "System\ Preferences.app" "zoom.us.app")
 for app in "${apps[@]}"
 do

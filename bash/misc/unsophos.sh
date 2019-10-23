@@ -40,14 +40,14 @@ fi
 # /Library/Application Support/Sophos/opm/Installer.app/Contents/MacOS
 # /Library/Application Support/Sophos/opm/Installer.app/Contents/MacOS/tools
 #
-# If the InstallationDeployer application is present in the Contents/MacOS/tools directory, the 
+# If the InstallationDeployer application is present in the Contents/MacOS/tools directory, the
 # uninstallation process is run using the InstallationDeployer tool located there.
 #
-# If the InstallationDeployer application is present only in the Contents/MacOS directory, the 
+# If the InstallationDeployer application is present only in the Contents/MacOS directory, the
 # uninstallation process is run using the InstallationDeployer tool located there.
 #
-# The reason for the directory-specific check is that running the InstallationDeployer application 
-# from Contents/MacOS on Sophos 9.1.x and later will cause the Sophos uninstaller application to 
+# The reason for the directory-specific check is that running the InstallationDeployer application
+# from Contents/MacOS on Sophos 9.1.x and later will cause the Sophos uninstaller application to
 # launch in the dock and interfere with a normal installation via installer package.
 #
 # For more information, see the link below:
@@ -61,7 +61,7 @@ elif [[ -f "/Library/Application Support/Sophos/he/Installer.app/Contents/MacOS/
     "/Library/Application Support/Sophos/he/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove
 elif [[ ! -f "/Library/Application Support/Sophos/he/Installer.app/Contents/MacOS/InstallationDeployer" ]] && [[ -f "/Library/Application Support/Sophos/he/Installer.app/Contents/MacOS/tools/InstallationDeployer" ]]; then
     ${LOGGER} "Sophos AV Home Edition present on Mac. Uninstalling before installing new copy."
-    "/Library/Application Support/Sophos/he/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove 
+    "/Library/Application Support/Sophos/he/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove
 else
     ${LOGGER} "Sophos Anti-Virus 9.x Home Edition Uninstaller Not Present"
 fi
@@ -74,7 +74,7 @@ elif [[ -f "/Library/Application Support/Sophos/opm-sa/Installer.app/Contents/Ma
     "/Library/Application Support/Sophos/opm-sa/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove
 elif [[ ! -f "/Library/Application Support/Sophos/opm-sa/Installer.app/Contents/MacOS/InstallationDeployer" ]] && [[ -f "/Library/Application Support/Sophos/opm-sa/Installer.app/Contents/MacOS/tools/InstallationDeployer" ]]; then
     ${LOGGER} "Sophos AV Standalone present on Mac. Uninstalling before installing new copy."
-    "/Library/Application Support/Sophos/opm-sa/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove 
+    "/Library/Application Support/Sophos/opm-sa/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove
 else
     ${LOGGER} "Sophos Anti-Virus 9.x Standalone Uninstaller Not Present"
 fi
@@ -87,7 +87,7 @@ elif [[ -f "/Library/Application Support/Sophos/opm/Installer.app/Contents/MacOS
     "/Library/Application Support/Sophos/opm/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove
 elif [[ ! -f "/Library/Application Support/Sophos/opm/Installer.app/Contents/MacOS/InstallationDeployer" ]] && [[ -f "/Library/Application Support/Sophos/opm/Installer.app/Contents/MacOS/tools/InstallationDeployer" ]]; then
     ${LOGGER} "Sophos AV Enterprise present on Mac. Uninstalling before installing new copy."
-    "/Library/Application Support/Sophos/opm/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove    
+    "/Library/Application Support/Sophos/opm/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove
 else
     ${LOGGER} "Sophos Anti-Virus 9.x Enterprise Uninstaller Not Present"
 fi
@@ -100,7 +100,7 @@ elif [[ -f "/Library/Application Support/Sophos/saas/Installer.app/Contents/MacO
     "/Library/Application Support/Sophos/saas/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove
 elif [[ ! -f "/Library/Application Support/Sophos/saas/Installer.app/Contents/MacOS/InstallationDeployer" ]] && [[ -f "/Library/Application Support/Sophos/saas/Installer.app/Contents/MacOS/tools/InstallationDeployer" ]]; then
     ${LOGGER} "Sophos AV Cloud present on Mac. Uninstalling before installing new copy."
-    "/Library/Application Support/Sophos/saas/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove   
+    "/Library/Application Support/Sophos/saas/Installer.app/Contents/MacOS/tools/InstallationDeployer" --remove
 else
     ${LOGGER} "Sophos Anti-Virus 9.x Cloud Uninstaller Not Present"
 fi

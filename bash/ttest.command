@@ -31,8 +31,8 @@ killall Dock;
 
 add items to dock -- re-add dock util if not installed prior
 echo "ADDING DOCK ICONS..."; $sleep 3;
-apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app" 
-"Microsoft Outlook.app"  "Microsoft Word.app" "Microsoft Excel.app" 
+apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app"
+"Microsoft Outlook.app"  "Microsoft Word.app" "Microsoft Excel.app"
 "System Preferences.app" "zoom.us.app")
 for app in "${apps[@]}"
 do

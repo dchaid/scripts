@@ -1,6 +1,6 @@
-#!/bin/bash 
+#!/bin/bash
 #wifi connection script
-#connect to KDIGuest network if needed 
+#connect to KDIGuest network if needed
 commenting out unless needed
 echo "CONNECTING TO NETWORK..."; sleep 1;
 host="www.apple.com"

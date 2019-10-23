@@ -5,16 +5,16 @@
 ###############################################################################
 #---Version: 1.0
 #---Creation date: Aug. 21, 2019
-#---Description: Adds Lyell admin account, installs homebrew, MS Office,enables 
-#---firewall, mods cursor rate, installs sophos, adds dock icons, runs macOS 
-#---Software Update, adds meraki mdm. Automatically reboots. Installs inSync, 
+#---Description: Adds Lyell admin account, installs homebrew, MS Office,enables
+#---firewall, mods cursor rate, installs sophos, adds dock icons, runs macOS
+#---Software Update, adds meraki mdm. Automatically reboots. Installs inSync,
 #---Xerox Software drivers, Box Notes, MerakiPCC, default browser Chrome
 
-#---NOTE: External Drive MUST be labled as 'lyelldrive' with INSTALLS folder 
+#---NOTE: External Drive MUST be labled as 'lyelldrive' with INSTALLS folder
 #---located at ROOT Level...
 #/lyelldrive/INSTALLS/ Contents:
-#Box Notes.app, Box.pkg, InstallBoxTools.app, MerakiPCCAgent.pkg, 
-#Microsoft_Office.pkg, Sophos\ Installer Components, SophosInstaller.app, 
+#Box Notes.app, Box.pkg, InstallBoxTools.app, MerakiPCCAgent.pkg,
+#Microsoft_Office.pkg, Sophos\ Installer Components, SophosInstaller.app,
 #XeroxPrintDriver.pkg, Zoom.pkg, inSync.mpkg, meraki_sm_mdm.mobileconfig
 
 spin()
@@ -125,7 +125,7 @@ echo 'Welcome2Lyell!' | pbcopy;
 echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP..."; $sleep 1;
 echo "ADMIN PASSWORD COPIED TO CLIPBOARD..."; $sleep 1;
 install="open /Volumes/lyelldrive/INSTALLS/"
-installers=("InstallBoxTools.app" "inSync.mpkg" "MerakiPCCAgent.pkg" 
+installers=("InstallBoxTools.app" "inSync.mpkg" "MerakiPCCAgent.pkg"
 "Microsoft_Office.pkg" "SophosInstaller.app" "XeroxPrintDriver.pkg")
 for app in "${installers[@]}"
 do
@@ -204,8 +204,8 @@ echo "REMOVING DOCK ICONS..."; $sleep 1;
 eval killall cfprefsd; $sleep 1;
 sudo $dockutil --remove all --no-restart; $sleep 1;
 echo "ADDING DOCK ICONS..."; $sleep 1;
-apps=("Google\ Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app" 
-"Microsoft\ Outlook.app"  "Microsoft\ Word.app" "Microsoft\ Excel.app" 
+apps=("Google\ Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app"
+"Microsoft\ Outlook.app"  "Microsoft\ Word.app" "Microsoft\ Excel.app"
 "System\ Preferences.app" "zoom.us.app")
 for app in "${apps[@]}"
 do

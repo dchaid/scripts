@@ -27,8 +27,8 @@ x="defaults write com.apple.dock persistent-apps -array-add "
 y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
 z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
 f="$x"$y
-apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app" 
-"Microsoft Outlook.app"  "Microsoft Word.app" "Microsoft Excel.app" 
+apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app"
+"Microsoft Outlook.app"  "Microsoft Word.app" "Microsoft Excel.app"
 "System Preferences.app" "zoom.us.app")
 for app in "${apps[@]}"
 do
