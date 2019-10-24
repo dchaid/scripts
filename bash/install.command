@@ -43,6 +43,7 @@ dockutil="/usr/local/bin/dockutil"
 rate="/usr/bin/defaults write -g"
 scutil="sudo scutil --set"
 sleep="/bin/sleep"
+spellcheck="defaults write com.apple.messageshelper.MessageController SOInputLineSettings"
 x="sudo $dockutil --add /Applications/"
 y="--no-restart"
 
@@ -92,7 +93,7 @@ $rate NSAutomaticCapitalizationEnabled -bool false;
 $rate NSAutomaticPeriodSubstitutionEnabled -bool false;
 $rate NSAutomaticDashSubstitutionEnabled -bool false;
 $rate NSAutomaticQuoteSubstitutionEnabled -bool false;
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false;
+$spellcheck -dict-add "continuousSpellCheckingEnabled" -bool false;
 
 #mdm install
 echo "STARTING MERAKI INSTALLER..."; sleep 1;
