@@ -1,8 +1,13 @@
 #!/bin/bash
-#***************************************************************************************************************
+###############################################################################
+#                                                                             #
+###############################################################################
 #---Creation date: October 16, 2019
 #---Description: Adds Forsite admin account, installs homebrew
-#***************************************************************************************************************
+###############################################################################
+#                                                                             #
+###############################################################################
+
 spin()
 {
   spinner="/|\\—/|\\—"
@@ -16,23 +21,28 @@ spin()
     done
   done
 }
-#***************************************************************************************************************
-#aliases
+
+###############################################################################
+# aliases                                                                     #
+###############################################################################
 clear="eval /usr/bin/clear"
-sleep="/bin/sleep"
-rate="/usr/bin/defaults write -g"
-scutil="sudo scutil --set"
 admin="sudo dscl . create /Users/fladmin"
 brew="/usr/local/bin/brew install"
-cask="/usr/local/bin/brew cask install"
-dockutil="/usr/local/bin/dockutil"
 browser="/usr/local/bin/defaultbrowser"
-x="defaults write com.apple.dock persistent-apps -array-add "
-y='"<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/'
-z='</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
-f="$x"$y
-#***************************************************************************************************************
-function buffer() {
+cask="/usr/local/bin/brew cask install"
+clear="eval /usr/bin/clear"
+dockutil="/usr/local/bin/dockutil"
+rate="/usr/bin/defaults write -g"
+scutil="sudo scutil --set"
+sleep="/bin/sleep"
+spellcheck="defaults write com.apple.messageshelper.MessageController SOInputLineSettings"
+x="sudo $dockutil --add /Applications/"
+y="--no-restart"
+###############################################################################
+#                                                                             #
+###############################################################################
+
+function buffer(){
     echo ".";
     echo ".";
     echo ".";
@@ -51,20 +61,38 @@ trap 'kill -9 $SPIN_PID' $(seq 0 15)
 #script start
 echo "STARTING INSTALLATION..."; $sleep 1;
 buffer;
-#silently check for macOS software updates — runs in background...
+#silently check for macOS software updates — runs in background...sets no sleep
 sudo softwareupdate -i -a >/dev/null 2>&1 &
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1;
+defaults write com.apple.gamed Disabled -bool true;
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true;
+sudo pmset -a hibernatemode 0;
+sudo pmset halfdim 0;
+sudo pmset -a displaysleep 0 disksleep 0 sleep 0;
+sudo systemsetup -setcomputersleep Never;
+sudo systemsetup -setdisplaysleep Never;
+
 #enable firewall
 echo "ENABLING FIREWALL..."; $sleep 1;
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1;
+
 #set key repeat rate and cursor blink
 echo "MODIFYING CURSOR REPEAT RATE..."; $sleep 1;
 $rate NSTextInsertionPointBlinkPeriodOn -float 200;
 $rate NSTextInsertionPointBlinkPeriodOff -float 200;
 $rate InitialKeyRepeat -int 15;
 $rate KeyRepeat -int 2;
+$rate NSAutomaticSpellingCorrectionEnabled -bool false;
+$rate ApplePressAndHoldEnabled -bool false;
+$rate NSAutomaticCapitalizationEnabled -bool false;
+$rate NSAutomaticPeriodSubstitutionEnabled -bool false;
+$rate NSAutomaticDashSubstitutionEnabled -bool false;
+$rate NSAutomaticQuoteSubstitutionEnabled -bool false;
+$spellcheck -dict-add "continuousSpellCheckingEnabled" -bool false;
+
 #new hostname
 echo "PLEASE ENTER NEW HOSTNAME....FL0XX..."; sleep 2;
-function machinename() {
+function machinename(){
     osascript <<EOT
         tell application "Finder"
             activate
@@ -72,7 +100,7 @@ function machinename() {
             end tell
 EOT
 }
-function renameComputer() {
+function renameComputer(){
     echo "NEW HOSTNAME: $ComputerName"; sleep 1;
     $scutil HostName "$ComputerName";
     $scutil LocalHostName "$ComputerName";
@@ -81,6 +109,7 @@ function renameComputer() {
 }
 ComputerName=$(machinename)
 renameComputer;
+
 #opening all installers
 echo 'Welcome2ForesiteLabs!' | pbcopy;
 echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP..."; $sleep 1;
@@ -91,6 +120,7 @@ for app in "${installers[@]}"
 do
     eval "$install"\$app;
 done
+
 #admin account creation: checks last userID used and uses next available
 echo "CREATING ADMIN ACCOUNT..."; $sleep 1;
 LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
@@ -113,6 +143,7 @@ else
     echo "ADMIN ACCOUNT CREATED..."; $sleep 2;
 fi
 $clear
+
 #install homebrew
 echo "INSTALLING HOMEBREW..."; $sleep 1;
 yes '' | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
@@ -137,12 +168,14 @@ function man_chmod() {
 }
 man_chmod;
 $clear
+
 #install homebrew
 echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 3; man_chmod;
 $brew cask; man_chmod;
 $brew bash; man_chmod;
 $brew dockutil; man_chmod;
 $brew defaultbrowser; man_chmod;
+
 #install brew casks
 $cask atom;
 $cask firefox;
@@ -151,6 +184,7 @@ $cask java;
 $cask slack;
 $cask zoom-us;
 $clear
+
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS..."; $sleep 1;
 eval killall cfprefsd; $sleep 3;
@@ -166,6 +200,7 @@ sudo $dockutil --add /Applications/Microsoft\ Excel.app --no-restart;
 sudo $dockutil --add /Applications/System\ Preferences.app --no-restart;
 sudo $dockutil --add /Applications/zoom.us.app --no-restart;
 killall Dock;
+
 #add items to dock -- re-add dock util if not installed prior
 #echo "ADDING DOCK ICONS..."; $sleep 3;
 #apps=("Google Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app"
@@ -178,18 +213,22 @@ killall Dock;
 #echo "DOCK ICON REORGANIZATION COMPLETE..."; $sleep 3;
 #echo "IF FAILED PLEASE RUN DOCK.COMMAND ON DESKTOP..."; $sleep 1;
 #eval killall Dock; $sleep 3;
+
 function lock_chmod(){
     sudo chmod 755 /usr/local/share/man/man1; echo "..";
     sudo chmod 755 /usr/local/share/man/man8; echo "..";
 }
 $clear
 lock_chmod;
+
 #launches external terminal to retry dock reorg
 #osascript -e 'tell app "Terminal"
  #   do script "bash ~/Desktop/Install/dock.command"
 #end tell'
+
 #kill spinner
 kill -9 $SPIN_PID;
+
 #superuser reboot if required
 sudo -v;
 $clear
