@@ -1,5 +1,7 @@
 #!/bin/bash
-#*****************************************************************************************************************************
+###############################################################################
+#                                                                             #
+###############################################################################
 #Created by: David Chaid - KDInfotech
 #Creation date: September 17, 2019
 #Last Modified: October 22, 2019
@@ -8,7 +10,9 @@
 #Updates Available at: https://raw.githubusercontent.com/dchaid/scripts/master/bash/ion_install.command
 #Description: Connects to Ionpath-guest, adds admin account, installs hombrew,enables firewall,
 #mods cursor rate, adds dock icons, runs macOS Software Update, Automatically reboots.
-#*****************************************************************************************************************************
+###############################################################################
+#                                                                             #
+###############################################################################
 
 spin()
 {
@@ -40,7 +44,7 @@ x="sudo $dockutil --add /Applications/"
 y="--no-restart"
 
 ###############################################################################
-# Script                                                                     #
+# Script                                                                      #
 ###############################################################################
 
 #Resize terminal window
