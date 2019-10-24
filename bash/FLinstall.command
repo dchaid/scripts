@@ -149,6 +149,7 @@ $cask firefox;
 $cask google-chrome;
 $cask java;
 $cask slack;
+$cask zoom-us;
 $clear
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
 echo "REMOVING DOCK ICONS..."; $sleep 1;
