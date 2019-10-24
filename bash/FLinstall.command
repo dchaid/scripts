@@ -22,7 +22,7 @@ clear="eval /usr/bin/clear"
 sleep="/bin/sleep"
 rate="/usr/bin/defaults write -g"
 scutil="sudo scutil --set"
-admin="sudo dscl . create /Users/FLadmin"
+admin="sudo dscl . create /Users/fladmin"
 brew="/usr/local/bin/brew install"
 cask="/usr/local/bin/brew cask install"
 dockutil="/usr/local/bin/dockutil"
@@ -95,21 +95,21 @@ done
 echo "CREATING ADMIN ACCOUNT..."; $sleep 1;
 LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
 NextID=$((LastID + 1))
-if [[ $(dscl . list /Users) =~ "FLadmin" ]]; then
+if [[ $(dscl . list /Users) =~ "fladmin" ]]; then
     echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; $sleep 1;
 else
     . /etc/rc.common
     $admin
-    $admin RealName "FLAdmin"
+    $admin RealName "FLadmin"
     $admin hint ""
     $admin picture "/Library/User Pictures/Nature/Earth.png"
     $admin UniqueID $NextID
     $admin PrimaryGroupID 80
     $admin UserShell /bin/bash
-    $admin NFSHomeDirectory /Users/FLadmin
-    sudo dscl . passwd /Users/FLadmin 4siteLabs!
-    sudo cp -R /System/Library/User\ Template/English.lproj /Users/FLadmin
-    sudo chown -R FLadmin:staff /Users/FLadmin
+    $admin NFSHomeDirectory /Users/fladmin
+    sudo dscl . passwd /Users/fladmin 4siteLabs!
+    sudo cp -R /System/Library/User\ Template/English.lproj /Users/fladmin
+    sudo chown -R fladmin:staff /Users/fladmin
     echo "ADMIN ACCOUNT CREATED..."; $sleep 2;
 fi
 $clear
