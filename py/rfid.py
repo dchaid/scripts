@@ -14,16 +14,16 @@ def console(q):
 
 LOG = open('logs.csv', 'a+')
 
-TIME = datetime.now().strftime("%m/%d/%y") + ', ' + datetime.now().strftime("%I:%M:%S %p") + ', '
-
 def action_2807():
-    print("\r" + datetime.now().strftime("%m/%d/%y") + ', ' + datetime.now().strftime("%I:%M:%S %p") + ', ' + 'David Chaid') 
-    print(("\r" + datetime.now().strftime("%m/%d/%y") + ', ' + datetime.now().strftime("%I:%M:%S %p") + ', ' + 'David Chaid'), file = LOG)
+    TIME = datetime.now().strftime("%m/%d/%y") + ', ' + datetime.now().strftime("%I:%M:%S %p") + ', '
+    print(TIME + 'David Chaid') 
+    print((TIME + 'David Chaid'), file = LOG)
     
 
 def action_2808():
-    print("\r" + datetime.now().strftime("%m/%d/%y") + ', ' + datetime.now().strftime("%I:%M:%S %p") + ', ' + 'Bruce Rollins')
-    print(("\r" + datetime.now().strftime("%m/%d/%y") + ', ' + datetime.now().strftime("%I:%M:%S %p") + ', ' + 'Bruce Rollins'), file = LOG)
+    TIME = datetime.now().strftime("%m/%d/%y") + ', ' + datetime.now().strftime("%I:%M:%S %p") + ', '
+    print(TIME + 'Bruce Rollins')
+    print((TIME + 'Bruce Rollins'), file = LOG)
 
 def invalid_input():
     print('---> Unknown User...')
