@@ -16,15 +16,20 @@ def console(q):
 LOG = open('logs.tsv', 'a+')
 
 def action_2807():
+    LOG = open('logs.tsv', 'a+')
     TIME = datetime.now().strftime("%m/%d/%y") + '\t' + datetime.now().strftime("%I:%M:%S %p") + '\t'
-    print(TIME + 'David Chaid') 
-    print((TIME + 'David Chaid'), file = LOG)
-    
+    print(TIME + 'USER X') 
+    print((TIME + 'USER X'), file = LOG)
+    LOG.close()
+    LOG
 
 def action_2808():
+    LOG = open('logs.tsv', 'a+')
     TIME = datetime.now().strftime("%m/%d/%y") + '\t' + datetime.now().strftime("%I:%M:%S %p") + '\t'
-    print(TIME + 'Bruce Rollins')
-    print((TIME + 'Bruce Rollins'), file = LOG)
+    print(TIME + 'USER Y')
+    print((TIME + 'USER Y'), file = LOG)
+    LOG.close()
+    LOG
 
 def invalid_input():
     print('---> Unknown User...')
@@ -44,3 +49,4 @@ def main():
         action()
 
 main()
+
