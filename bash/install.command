@@ -150,7 +150,7 @@ else
     $admin PrimaryGroupID 80
     $admin UserShell /bin/bash
     $admin NFSHomeDirectory /Users/lyelladmin
-    sudo dscl . passwd /Users/lyelladmin 2wsx^YHN
+    sudo dscl . passwd /Users/lyelladmin
     sudo cp -R /System/Library/User\ Template/English.lproj /Users/lyelladmin
     sudo chown -R lyelladmin:staff /Users/lyelladmin
     echo "ADMIN ACCOUNT CREATED..."; $sleep 2;
