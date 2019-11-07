@@ -170,6 +170,9 @@ $brew cask; man_chmod;
 $brew bash; man_chmod;
 $brew dockutil; man_chmod;
 $brew defaultbrowser; man_chmod;
+$brew zsh; man_chmod;
+$brew tree; man_chmod;
+$brew htop ; man_chmod;
 
 #install brew casks
 $cask firefox;
@@ -180,17 +183,17 @@ $cask zoomus;
 $clear
 
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
-echo "REMOVING DOCK ICONS..."; $sleep 1;
-eval killall cfprefsd; $sleep 1;
-sudo $dockutil --remove all --no-restart; $sleep 1;
-echo "ADDING DOCK ICONS..."; $sleep 1;
-apps=("Google\ Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app"
-"System\ Preferences.app" "zoom.us.app")
-for app in "${apps[@]}"
-do
-    eval $x$app $y;
-done
-killall Dock;
+#echo "REMOVING DOCK ICONS..."; $sleep 1;
+#eval killall cfprefsd; $sleep 1;
+#sudo $dockutil --remove all --no-restart; $sleep 1;
+#echo "ADDING DOCK ICONS..."; $sleep 1;
+#apps=("Google\ Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app"
+#"System\ Preferences.app" "zoom.us.app")
+#for app in "${apps[@]}"
+#do
+#    eval $x$app $y;
+#done
+#killall Dock;
 
 function lock_chmod(){
     sudo chmod 755 /usr/local/share/man/man1; echo "..";
@@ -206,7 +209,24 @@ kill -9 $SPIN_PID;
 echo "SETTING DEFAULT BROWSER TO CHROME...";
 $browser chrome
 
-echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 30 SECONDS..."; $sleep 30;
+echo "CREATING INFO DOC...PLACING ON DESKTOP..."; $sleep 1;
+echo "PLEASE EMAIL TO DCHAID@ARSENALBIO.COM...";
+
+touch ~/Desktop/info_to_email.txt
+echo "user:" >> ~/Desktop/info_to_email.txt ;
+eval whoami >> ~/Desktop/info_to_email.txt ;
+echo "" >> ~/Desktop/info_to_email.txt ;
+echo "hostname:" >> ~/Desktop/info_to_email.txt ;
+eval hostname >> ~/Desktop/info_to_email.txt ;
+echo "" >> ~/Desktop/info_to_email.txt ;
+echo "serial:" >> ~/Desktop/info_to_email.txt ;
+ioreg -l | grep IOPlatformSerialNumber >> ~/Desktop/info_to_email.txt ;
+echo "" >> ~/Desktop/info_to_email.txt ;
+
+open ~/Downloads/arsenal_pkg/Sophos.app ; 
+
+echo "" ;
+echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 1000 SECONDS..."; $sleep 1000;
 sudo shutdown -r now;
 
 exit 0
