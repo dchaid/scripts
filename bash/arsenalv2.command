@@ -63,7 +63,7 @@ trap 'kill -9 $SPIN_PID' $(seq 0 15)
 echo "STARTING INSTALLATION..."; $sleep 1;
 
 #silently check for macOS software updates — runs in background...sets no sleep
-sudo softwareupdate -i -a >/dev/null 2>&1 &
+#sudo softwareupdate -i -a >/dev/null 2>&1 &
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1;
 defaults write com.apple.gamed Disabled -bool true;
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true;
@@ -195,7 +195,7 @@ $clear
 #done
 #killall Dock;
 
-function lock_chmod(){
+function lock_chmod() {
     sudo chmod 755 /usr/local/share/man/man1; echo "..";
     sudo chmod 755 /usr/local/share/man/man8; echo "..";
 }
@@ -212,18 +212,21 @@ $browser chrome
 echo "CREATING INFO DOC...PLACING ON DESKTOP..."; $sleep 1;
 echo "PLEASE EMAIL TO DCHAID@ARSENALBIO.COM...";
 
-touch ~/Desktop/info_to_email.txt
-echo "user:" >> ~/Desktop/info_to_email.txt ;
-eval whoami >> ~/Desktop/info_to_email.txt ;
-echo "" >> ~/Desktop/info_to_email.txt ;
-echo "hostname:" >> ~/Desktop/info_to_email.txt ;
-eval hostname >> ~/Desktop/info_to_email.txt ;
-echo "" >> ~/Desktop/info_to_email.txt ;
-echo "serial:" >> ~/Desktop/info_to_email.txt ;
-ioreg -l | grep IOPlatformSerialNumber >> ~/Desktop/info_to_email.txt ;
-echo "" >> ~/Desktop/info_to_email.txt ;
+function system_info() {
+    touch ~/Desktop/info_to_email.txt;
+    echo "user:" >> ~/Desktop/info_to_email.txt;
+    eval whoami >> ~/Desktop/info_to_email.txt;
+    echo "" >> ~/Desktop/info_to_email.txt;
+    echo "hostname:" >> ~/Desktop/info_to_email.txt;
+    eval hostname >> ~/Desktop/info_to_email.txt;
+    echo "" >> ~/Desktop/info_to_email.txt;
+    echo "serial:" >> ~/Desktop/info_to_email.txt;
+    ioreg -l | grep IOPlatformSerialNumber >> ~/Desktop/info_to_email.txt;
+    echo "" >> ~/Desktop/info_to_email.txt;
+}
+system_info;
 
-open ~/Downloads/arsenal_pkg/Sophos.app ; 
+open ~/Downloads/arsenal_pkg/Sophos.app; 
 
 echo "" ;
 echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 1000 SECONDS..."; $sleep 1000;
