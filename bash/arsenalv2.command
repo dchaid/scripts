@@ -164,6 +164,9 @@ function man_chmod() {
 man_chmod;
 $clear
 
+#install meraki agent
+open ~/Downloads/arsenal_pkg/MerakiPCCAgent.pkg; 
+
 #install homebrew
 echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 1; man_chmod;
 $brew cask; man_chmod;
@@ -173,6 +176,9 @@ $brew defaultbrowser; man_chmod;
 $brew zsh; man_chmod;
 $brew tree; man_chmod;
 $brew htop ; man_chmod;
+
+#install meraki mdm profile
+open ~/Downloads/arsenal_pkg/meraki_sm_mdm.mobileconfig;
 
 #install brew casks
 $cask firefox;
@@ -229,7 +235,7 @@ system_info;
 open ~/Downloads/arsenal_pkg/Sophos.app; 
 
 echo "" ;
-echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 1000 SECONDS..."; $sleep 1000;
+echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 16 MINUTES..."; $sleep 1000;
 sudo shutdown -r now;
 
 exit 0
