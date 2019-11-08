@@ -166,9 +166,6 @@ function man_chmod() {
 man_chmod;
 $clear
 
-#install meraki agent
-open ~/Downloads/arsenal_pkg/MerakiPCCAgent.pkg; 
-
 #install homebrew
 echo "STARTING HOMEBREW INSTALLATIONS..."; $sleep 1; man_chmod;
 $brew cask; man_chmod;
