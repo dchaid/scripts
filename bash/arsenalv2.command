@@ -112,8 +112,10 @@ ComputerName=$(machinename)
 renameComputer;
 
 #opening all installers
-echo 'ionpath' | pbcopy;
-echo password is 'ionpath'. RANDOMIZE WHEN COMPLETE;
+echo '066-198-3392' | pbcopy;
+echo "066-198-3392 COPIED TO CLIPBOARD...PLEASE PASTE INTO MERAKI WEBSITE..."; sleep 5;
+open 'https://m.meraki.com/mdm/'; sleep 10;
+echo "DOWNLOAD AND INSTALL MDM PROFILE..."
 
 #admin account creation: checks last userID used and uses next available
 echo "CREATING ADMIN ACCOUNT..."; $sleep 1;
