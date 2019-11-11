@@ -49,6 +49,49 @@ y="--no-restart"
 #Resize terminal window
 printf '\e[8;65;170t'
 
+echo " "
+echo "                            @@@@@@@@@@@@@@@@@                                            "
+echo "                           @@@@@@@@@@@@@@@@@@                                            "
+echo "                          @@@@@@@@@@@@@@@@@@@@                                           "
+echo "                          @@@@@@@@@@@@@@@@@@@@@                                          "
+echo "                         @@@@@@@@@@@@@@@@@@@@@@.                                         "
+echo "                        @@@@@@@@@@@@@@@@@@@@@@@@                                         "
+echo "                       (@@@@@@@@@@@@@@@@@@@@@@@@@                                        "
+echo "                       @@@@@@@@@@@@@@@@@@@@@@@@@@#                                       "
+echo "                      @@@@@@@@@@@@@@@@@@@@@@@@@@@@                                       "
+echo "                     &@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                      "
+echo "                     @@@@@@@@@@@@@@. @@@@@@@@@@@@@@@                                     "
+echo "                    @@@@@@@@@@@@@@@  ,@@@@@@@@@@@@@@                                     "
+echo "                   @@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@                                    "
+echo "                   @@@@@@@@@@@@@@&     @@@@@@@@@@@@@@@                                   "
+echo "                  @@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@                                   "
+echo "                 @@@@@@@@@@@@@@@        @@@@@@@@@@@@@@@                                  "
+echo "                *@@@@@@@@@@@@@@@         @@@@@@@@@@@@@@@                                 "
+echo "                @@@@@@@@@@@@@@@          @@@@@@@@@@@@@@@/                                "
+echo "               @@@@@@@@@@@@@@@            @@@@@@@@@@@@@@@                                "
+echo "              &@@@@@@@@@@@@@@@             @@@@@@@@@@@@@@@                               "
+echo "              @@@@@@@@@@@@@@@              @@@@@@@@@@@@@@@@                              "
+echo "             @@@@@@@@@@@@@@@                @@@@@@@@@@@@@@@                              "
+echo "            @@@@@@@@@@@@@@@@                /@@@@@@@@@@@@@@@                             "
+echo "            @@@@@@@@@@@@@@@                  ,,,,,,,,,,,,,,,,%%%%%%%%%%%%%%%%%%%%%%%(    "
+echo "           @@@@@@@@@@@@@@@#                                  @@@@@@@@@@@@@@@@@@@@@@@@    "
+echo "          @@@@@@@@@@@@@@@@                                    @@@@@@@@@@@@@@@@@@@@@@@@   "
+echo "         .@@@@@@@@@@@@@@@                                      @@@@@@@@@@@@@@@@@@@@@@@@  "
+echo "         @@@@@@@@@@@@@@@@                                      #@@@@@@@@@@@@@@@@@@@@@@@  "
+echo "        @@@@@@@@@@@@@@@@                                        @@@@@@@@@@@@@@@@@@@@@@@@ "
+echo "       #@@@@@@@@@@@@@@@                                          @@@@@@@@@@@@@@@@@@@@@@@@"
+echo "       @@@@@@@@@@@@@@@@                           @@@@@@@@@@@@@@@(                       "
+echo "      @@@@@@@@@@@@@@@@                            @@@@@@@@@@@@@@@@                       "
+echo "     @@@@@@@@@@@@@@@@.                             @@@@@@@@@@@@@@@@                      "
+echo "     @@@@@@@@@@@@@@@@                              /@@@@@@@@@@@@@@@@                     "
+echo "    @@@@@@@@@@@@@@@@                                @@@@@@@@@@@@@@@@                     "
+echo "   @@@@@@@@@@@@@@@@(                                 @@@@@@@@@@@@@@@@                    "
+echo "   @@@@@@@@@@@@@@@@                                  &@@@@@@@@@@@@@@@@                   "
+echo "  @@@@@@@@@@@@@@@@                                    @@@@@@@@@@@@@@@@                   "
+echo " @@@@@@@@@@@@@@@@@                                     @@@@@@@@@@@@@@@@                  "
+echo "/@@@@@@@@@@@@@@@@                                      @@@@@@@@@@@@@@@@@ "
+echo " "
+
 #user to enter sudo password to start
 echo "PLEASE ENTER ADMIN PASSWORD TO EXECUTE SCRIPT...";
 sudo -v
@@ -177,7 +220,7 @@ $brew tree; man_chmod;
 $brew htop ; man_chmod;
 
 #install meraki mdm profile
-open ~/Downloads/arsenal_pkg/meraki_sm_mdm.mobileconfig;
+open ~/Downloads/arsenal_pkg/MerakiPCCAgent.pkg;
 
 #install brew casks
 $cask firefox;
@@ -218,7 +261,9 @@ echo "CREATING INFO DOC...PLACING ON DESKTOP..."; $sleep 1;
 echo "PLEASE EMAIL TO DCHAID@ARSENALBIO.COM...";
 
 function system_info() {
-    touch ~/Desktop/info_to_email.txt;
+    touch ~/Desktop/info_to_email_dchaid@arsenalbio.txt;
+    echo "email to: dchaid@arsenalbio.com or Slack it to me..." >> ~/Desktop/info_to_email.txt;
+    echo "" >> ~/Desktop/info_to_email.txt;
     echo "user:" >> ~/Desktop/info_to_email.txt;
     eval whoami >> ~/Desktop/info_to_email.txt;
     echo "" >> ~/Desktop/info_to_email.txt;
@@ -229,12 +274,12 @@ function system_info() {
     ioreg -l | grep IOPlatformSerialNumber >> ~/Desktop/info_to_email.txt;
     echo "" >> ~/Desktop/info_to_email.txt;
 }
-system_info;
+system_info; $sleep 2;
 
 open ~/Downloads/arsenal_pkg/Sophos.app; 
 
 echo "" ;
-echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 16 MINUTES..."; $sleep 1000;
-sudo shutdown -r now;
+#echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 16 MINUTES..."; $sleep 1000;
+#sudo shutdown -r now;
 
 exit 0
