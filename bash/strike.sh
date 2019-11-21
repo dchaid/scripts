@@ -4,6 +4,10 @@
 #Creation date: November 18, 2019
 ###############################################################################
 
+#aliases
+FD=/Library/CS/falcond
+FCTL=/Library/CS/falconctl
+
 date () {
     [ "$#" -eq 0 ] && set -- +'%a, %b %d, %Y  %r'
     command date "$@"
@@ -12,7 +16,11 @@ date () {
 sudo -v
 #### uninstall sophos and install crowdstrike when available ####
 
-installer -pkg ~/Downloads/FalconSensorMacOS.pkg -target /Applications;
+cd ~/Downloads || exit
+
+for f in *.pkg ; 
+    do sudo installer -verboseR -pkg "$f" -target / -dumplog
+done
 
 # sudo rm -rf /Applications/Sophos Endpoint.app.app
 # sudo rm -rf /Applications/Sophos Device Encryption.app
@@ -20,21 +28,21 @@ installer -pkg ~/Downloads/FalconSensorMacOS.pkg -target /Applications;
 
 #### create .txt file and check for apps ####
 
-cd /Applications 
-
 function user_info() {
     touch ~/Desktop/fileX.txt;
-    date >> ~/Desktop/fileX.txt;
-    echo "" >> ~/Desktop/fileX.txt;
-    echo "user:" >> ~/Desktop/fileX.txt;
-    eval whoami >> ~/Desktop/fileX.txt;
-    echo "" >> ~/Desktop/fileX.txt;
-    echo "hostname:" >> ~/Desktop/fileX.txt;
-    eval hostname >> ~/Desktop/fileX.txt;
-    echo "" >> ~/Desktop/fileX.txt;
-    echo "serial:" >> ~/Desktop/fileX.txt;
-    ioreg -l | grep IOPlatformSerialNumber >> ~/Desktop/fileX.txt;
-    echo "" >> ~/Desktop/fileX.txt;
+    {
+        date
+        echo ""
+        echo "user:"
+        eval whoami
+        echo ""
+        echo "hostname:"
+        eval hostname
+        echo ""
+        echo
+        ioreg -l | grep IOPlatformSerialNumber
+        echo ""
+    } >> ~/Desktop/fileX.txt;
 
     if [ -d "Sophos Device Encryption.app" ]; then
     printf "❌ Sophos Device Encryption.app is installed. \n \n" >> ~/Desktop/fileX.txt;
@@ -51,10 +59,14 @@ function user_info() {
     else printf "✅ Sophos Endpoint.app is NOT installed. \n \n" >> ~/Desktop/fileX.txt;
     fi
 
+    if test -f "$FCTL"; then
+    printf "✅ FALCONCTL is installed. \n \n" >> ~/Desktop/fileX.txt;
+    else printf "❌ FALCONCTL is NOT installed. \n \n" >> ~/Desktop/fileX.txt;
+    fi
 
-    if [ -d "Crowdstrike.app" ]; then
-    printf "✅ Crowdstrike.app is installed. \n \n" >> ~/Desktop/fileX.txt;
-    else printf "❌ Crowdstrike.app is NOT installed. \n \n" >> ~/Desktop/fileX.txt;
+    if test -f "$FD"; then
+    printf "✅ FALCOND is installed. \n \n" >> ~/Desktop/fileX.txt;
+    else printf "❌ FALCOND is NOT installed. \n \n" >> ~/Desktop/fileX.txt;
     fi
 
     if [ -d "The Secret of Monkey Island.app" ]; then
@@ -62,7 +74,7 @@ function user_info() {
     else printf "🐒 The Secret of Monkey Island.app is NOT installed. \n \n" >> ~/Desktop/fileX.txt;
     fi
 
-    mv ~/Desktop/fileX.txt ~/Desktop/$(whoami)—$(hostname)—$(date +%Y%m%d-%H%M%S).txt;
+    mv ~/Desktop/fileX.txt ~/Desktop/"$(whoami)"—"$(hostname)"—"$(date +%Y%m%d-%H%M%S)".txt;
 }
 
 user_info;
