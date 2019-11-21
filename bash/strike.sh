@@ -17,7 +17,7 @@ sudo -v
 cd /Library/Application\ Support/Sophos/saas/Installer.app/Contents/MacOS/tools/ || return;
 sudo ./InstallationDeployer --force_remove;
 
-cd ~/Downloads || return;
+cd ~/Downloads/falcon || return;
 
 for f in *.pkg ; 
     do sudo installer -verboseR -pkg "$f" -target / -dumplog
