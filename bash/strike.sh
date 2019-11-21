@@ -12,11 +12,11 @@ date () {
 sudo -v
 #### uninstall sophos and install crowdstrike when available ####
 
-# open /Applications/Sophos\ Uninstaller.app;
+installer -pkg ~/Downloads/FalconSensorMacOS.pkg -target /Applications;
+
 # sudo rm -rf /Applications/Sophos Endpoint.app.app
 # sudo rm -rf /Applications/Sophos Device Encryption.app
 # sudo rm -rf /Applications/Sophos Endpoint Self Help.app.app
-# open /Volumes/Crowdstrike Installer.pkg
 
 #### create .txt file and check for apps ####
 
