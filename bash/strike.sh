@@ -17,13 +17,11 @@ sudo -v
 cd /Library/Application\ Support/Sophos/saas/Installer.app/Contents/MacOS/tools/ || return;
 sudo ./InstallationDeployer --force_remove;
 
-cd ~/Downloads/falcon || return;
+cd ~/Downloads || return;
 
 for f in *.pkg ; 
     do sudo installer -verboseR -pkg "$f" -target / -dumplog
 done
-
-sudo /Library/CS/falconctl license 3B0D5CED85C84B549D203AF5AA219B0A-27
 
 #### create .txt file and check for apps ####
 function user_info() {
