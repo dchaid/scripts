@@ -14,42 +14,30 @@ def console(q):
 
 def getUser(userID):
     try: 
-        connection = psycopg2.connect("dbname='dchaid' user='dchaid' host='localhost'")
+        connection = psycopg2.connect("dbname='davidchaid' user='davidchaid' host='localhost'")
 
-        print("Using Python variable in PostgreSQL select Query")
         cursor = connection.cursor()
-        postgreSQL_select_Query = "select * from person where id = %s" % (number)
+        postgreSQL_select_Query = "select * from rfpidb where id = %s" % (number)
 
         cursor.execute(postgreSQL_select_Query, (userID,))
         mobile_records = cursor.fetchall()
         for row in mobile_records:
+            print("")
             print("First_Name = ", row[1])
             print("Last_Name  = ", row[2])
             print("Email  = ", row[3])
             print("Gender  = ", row[4])
-            print("DOB  = ", row[5])
-            print("Country  = ", row[6])
-
-
-    except (Exception, psycopg2.Error) as error:
-        print("Error fetching data from PostgreSQL table", error)
+            print("Country  = ", row[5])
 
     finally:
         if (connection):
             cursor.close()
             connection.close()
-            print("PostgreSQL connection is closed \n")
+            print("")
+            print("Ticket Created \n")
 
-    cmd_queue = queue.Queue()
-
-    dj = threading.Thread(target=console, args=(cmd_queue,))
-    dj.start()
-
-    while 1:
-        cmd = cmd_queue.get()
-        if cmd == 'quit':
-            break
-print("Swipe Badge...\n")
-number = input()
-
-getUser(number)
+while True:
+    print("")
+    print("Swipe badge to create ticket...")
+    number = input()
+    getUser(number)
