@@ -17,7 +17,7 @@ LOG = open('logs.tsv', 'a+')
 
 def getUser(userID):
     try: 
-        connection = psycopg2.connect("dbname='davidchaid' user='davidchaid' host='localhost'")
+        connection = psycopg2.connect("dbname='rfpidb' user='davidchaid' host='localhost'")
         cursor = connection.cursor()
         postgreSQL_select_Query = "select * from rfpidb where id = %s" % (number)
         TIME = datetime.now().strftime("%m/%d/%y") + " " +datetime.now().strftime("%I:%M:%S %p")
@@ -34,7 +34,7 @@ def getUser(userID):
             print("Email:       ", row[3])
             print("Gender:      ", row[4])
             print("Country:     ", row[5])
-            print(TIME + '\t' + row[1] + '\t' + row[2] + '\t' + row[3] + '\t' + row[4] + '\t' + row[5], file = LOG)
+            print(TIME + '\t' + row[1] + '\t' + row[2] + '\t' + '\t' + row[4] + '\t' + row[5], file = LOG)
 
     finally:
         if (connection):
@@ -42,14 +42,19 @@ def getUser(userID):
             connection.close()
             print("")
 
-while True:
+while True:            
     print("")
     print("Swipe badge to create ticket...")
     print("\n")
     number = input()
     if number.isdigit() and 1 <= int(number) <= 1001:
-         print("\nTicket Created...\n")
+        print("\nTicket Created...\n")
+    elif number.isalpha():
+        print ("\nYou did not enter a valid number.\n")
+    elif number == "":
+        print ("\nYou did not enter a valid number.\n")
     else:
         print("\nBadge not recognized...\n")
 
-    getUser(number)
+
+        getUser(number)
