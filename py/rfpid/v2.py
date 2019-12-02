@@ -6,22 +6,21 @@ import sys
 import csv
 from datetime import datetime
 
+LOG = open('logs.tsv', 'a+')
+TIME = datetime.now().strftime("%m/%d/%y") + " " +datetime.now().strftime("%I:%M:%S %p")
+
 def console(q):
     while 1:
         cmd = input('> ')
         q.put(cmd)
         if cmd == 'quit':
             break
-
-LOG = open('logs.tsv', 'a+')
-
+        
 def getUser(userID):
     try: 
         connection = psycopg2.connect("dbname='rfpidb' user='davidchaid' host='localhost'")
         cursor = connection.cursor()
         postgreSQL_select_Query = "select * from rfpidb where id = %s" % (number)
-        TIME = datetime.now().strftime("%m/%d/%y") + " " +datetime.now().strftime("%I:%M:%S %p")
-
         cursor.execute(postgreSQL_select_Query, (userID,))
         mobile_records = cursor.fetchall()
         for row in mobile_records:
@@ -51,10 +50,11 @@ while True:
         print("\nTicket Created...\n")
     elif number.isalpha():
         print ("\nYou did not enter a valid number.\n")
+        number = 0
     elif number == "":
         print ("\nYou did not enter a valid number.\n")
+        number = 0
     else:
         print("\nBadge not recognized...\n")
-
-
-        getUser(number)
+        
+    getUser(number)

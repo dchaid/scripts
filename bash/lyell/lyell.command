@@ -124,14 +124,23 @@ renameComputer;
 #opening all installers
 echo 'Welcome2Lyell!' | pbcopy;
 echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP..."; $sleep 1;
-echo "ADMIN PASSWORD COPIED TO CLIPBOARD..."; $sleep 1;
+echo '2wsx^YHN' | pbcopy; echo "ADMIN PASSWORD COPIED TO CLIPBOARD..."; $sleep 1;
+
+pkg="sudo installer -pkg /Volumes/lyelldrive/INSTALLS/"
+$pkg\InstallBoxTools.pkg -target /
+$pkg\InSync.mpkg -target /
+$pkg\MerakiPCCAgent.pkg -target /
+$pkg\Microsoft_Office.pkg -target /
+$pkg\XeroxPrintDriver.pkg -target /
+
 install="open /Volumes/lyelldrive/INSTALLS/"
-installers=("InstallBoxTools.app" "inSync.mpkg" "MerakiPCCAgent.pkg"
-"Microsoft_Office.pkg" "SophosInstaller.app" "XeroxPrintDriver.pkg")
+installers=("SophosInstaller.app")
 for app in "${installers[@]}"
 do
     eval "$install"\$app;
 done
+
+
 eval cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app/ /Applications/;
 
 #admin account creation: checks last userID used and uses next available
@@ -150,7 +159,7 @@ else
     $admin PrimaryGroupID 80
     $admin UserShell /bin/bash
     $admin NFSHomeDirectory /Users/lyelladmin
-    sudo dscl . passwd /Users/lyelladmin
+    sudo dscl . passwd /Users/lyelladmin 2wsx^YHN
     sudo cp -R /System/Library/User\ Template/English.lproj /Users/lyelladmin
     sudo chown -R lyelladmin:staff /Users/lyelladmin
     echo "ADMIN ACCOUNT CREATED..."; $sleep 2;
