@@ -40,6 +40,7 @@ browser="/usr/local/bin/defaultbrowser"
 cask="/usr/local/bin/brew cask install"
 clear="eval /usr/bin/clear"
 dockutil="/usr/local/bin/dockutil"
+pkg="sudo installer -pkg /Volumes/lyelldrive/INSTALLS/"
 rate="/usr/bin/defaults write -g"
 scutil="sudo scutil --set"
 sleep="/bin/sleep"
@@ -121,17 +122,16 @@ function renameComputer() {
 ComputerName=$(machinename)
 renameComputer;
 
-#opening all installers
+#running all installers
 echo 'Welcome2Lyell!' | pbcopy;
 echo "OPENING ALL INSTALLERS NEEDED TO COMPLETE SETUP..."; $sleep 1;
 echo '2wsx^YHN' | pbcopy; echo "ADMIN PASSWORD COPIED TO CLIPBOARD..."; $sleep 1;
 
-pkg="sudo installer -pkg /Volumes/lyelldrive/INSTALLS/"
-$pkg\InstallBoxTools.pkg -target /
-$pkg\InSync.mpkg -target /
-$pkg\MerakiPCCAgent.pkg -target /
-$pkg\Microsoft_Office.pkg -target /
-$pkg\XeroxPrintDriver.pkg -target /
+$pkg\InstallBoxTools.pkg -target /;
+$pkg\InSync.mpkg -target /;
+$pkg\MerakiPCCAgent.pkg -target /;
+$pkg\Microsoft_Office.pkg -target /;
+$pkg\XeroxPrintDriver.pkg -target /;
 
 install="open /Volumes/lyelldrive/INSTALLS/"
 installers=("SophosInstaller.app")
@@ -139,7 +139,6 @@ for app in "${installers[@]}"
 do
     eval "$install"\$app;
 done
-
 
 eval cp -a /Volumes/lyelldrive/INSTALLS/Box\ Notes.app/ /Applications/;
 
