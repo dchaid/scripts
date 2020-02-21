@@ -275,6 +275,13 @@ sudo -v;
 $clear
 echo "SETTING DEFAULT BROWSER TO CHROME...";
 $browser chrome
+
+chflags nohidden ~/Library
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 sudo -v
 #echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 90 SECONDS..."; $sleep 2;
 echo "ALLOW SOFTWARE UPDATE TO COMPLETE IF POSSIBLE..."; $sleep 88;
