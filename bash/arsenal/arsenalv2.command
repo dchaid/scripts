@@ -230,18 +230,21 @@ $cask slack;
 $cask zoomus;
 $clear
 
-#remove items from dock; requires dockutil to be installed at /usr/local/bin
-#echo "REMOVING DOCK ICONS..."; $sleep 1;
-#eval killall cfprefsd; $sleep 1;
-#sudo $dockutil --remove all --no-restart; $sleep 1;
-#echo "ADDING DOCK ICONS..."; $sleep 1;
-#apps=("Google\ Chrome.app" "Safari.app" "Firefox.app" "Messages.app" "Slack.app"
-#"System\ Preferences.app" "zoom.us.app")
-#for app in "${apps[@]}"
-#do
-#    eval $x$app $y;
-#done
-#killall Dock;
+dockutil="/usr/local/bin/dockutil"
+x="sudo $dockutil --add /Applications/"
+y="--no-restart"
+sleep="/bin/sleep"
+sudo -v
+echo "REMOVING DOCK ICONS..."; $sleep 1;
+eval killall cfprefsd; $sleep 1;
+sudo $dockutil --remove all --no-restart; $sleep 1;
+echo "ADDING DOCK ICONS..."; $sleep 1;
+apps=("Google\ Chrome.app" "Safari.app" "Firefox.app" "Slack.app" "zoom.us.app")
+for app in "${apps[@]}"
+do
+    eval $x$app $y;
+done
+killall Dock;
 
 function lock_chmod() {
     sudo chmod 755 /usr/local/share/man/man1; echo "..";
@@ -257,8 +260,8 @@ kill -9 $SPIN_PID;
 echo "SETTING DEFAULT BROWSER TO CHROME...";
 $browser chrome
 
-echo "CREATING INFO DOC...PLACING ON DESKTOP..."; $sleep 1;
-echo "PLEASE EMAIL TO DCHAID@ARSENALBIO.COM...";
+#echo "CREATING INFO DOC...PLACING ON DESKTOP..."; $sleep 1;
+#echo "PLEASE EMAIL TO DCHAID@ARSENALBIO.COM...";
 
 function system_info() {
     touch ~/Desktop/info_to_email_dchaid@arsenalbio.txt;
@@ -274,9 +277,12 @@ function system_info() {
     ioreg -l | grep IOPlatformSerialNumber >> ~/Desktop/info_to_email.txt;
     echo "" >> ~/Desktop/info_to_email.txt;
 }
-system_info; $sleep 2;
+#system_info; $sleep 2;
 
-open ~/Downloads/arsenal_pkg/Sophos.app; 
+chflags nohidden ~/Library
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
 
 echo "" ;
 #echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 16 MINUTES..."; $sleep 1000;
