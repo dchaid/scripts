@@ -182,7 +182,8 @@ $cask firefox;
 $cask google-chrome;
 $cask java;
 $cask slack;
-$cask zoom-us;
+$cask zoomus;
+$cask lastpass;
 $clear
 
 #remove items from dock; requires dockutil to be installed at /usr/local/bin
@@ -192,12 +193,10 @@ sudo $dockutil --remove all --no-restart; $sleep 1;
 sudo $dockutil --add /Applications/Google\ Chrome.app --no-restart;
 sudo $dockutil --add /Applications/Safari.app --no-restart;
 sudo $dockutil --add /Applications/Firefox.app --no-restart;
-sudo $dockutil --add /Applications/Messages.app --no-restart;
 sudo $dockutil --add /Applications/Slack.app --no-restart;
 sudo $dockutil --add /Applications/Microsoft\ Outlook.app --no-restart;
 sudo $dockutil --add /Applications/Microsoft\ Word.app --no-restart;
 sudo $dockutil --add /Applications/Microsoft\ Excel.app --no-restart;
-sudo $dockutil --add /Applications/System\ Preferences.app --no-restart;
 sudo $dockutil --add /Applications/zoom.us.app --no-restart;
 killall Dock;
 
@@ -235,7 +234,7 @@ $clear
 echo "SETTING DEFAULT BROWSER TO CHROME...";
 $browser chrome
 sudo -v
-echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 90 SECONDS..."; $sleep 2;
+#echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 90 SECONDS..."; $sleep 2;
 echo "ALLOW SOFTWARE UPDATE TO COMPLETE IF POSSIBLE..."; $sleep 88;
-sudo reboot
+#sudo reboot
 exit 0
