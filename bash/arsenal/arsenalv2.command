@@ -283,6 +283,7 @@ chflags nohidden ~/Library
 defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 echo "" ;
 #echo "INSTALL COMPLETE...REBOOTING AUTOMATICALLY IN 16 MINUTES..."; $sleep 1000;
