@@ -4,7 +4,7 @@
 ###############################################################################
 #Created by: David Chaid - KDInfotech
 #Creation date: September 17, 2019
-#Last Modified: October 22, 2019
+#Last Modified: March 3, 2020
 #Modified by: David Chaid
 #Modified for: IONPath
 #Updates Available at: https://raw.githubusercontent.com/dchaid/scripts/master/bash/ion_install.command
@@ -175,8 +175,10 @@ $brew defaultbrowser; man_chmod;
 
 #install brew casks
 $cask firefox;
+$cask github;
 $cask google-chrome;
 $cask java;
+$cask lastpass;
 $cask slack;
 $cask zoomus;
 $clear
