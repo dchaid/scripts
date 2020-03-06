@@ -164,7 +164,7 @@ echo "DOWNLOAD AND INSTALL MDM PROFILE..."
 echo "CREATING ADMIN ACCOUNT..."; $sleep 1;
 LastID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
 NextID=$((LastID + 1))
-if [[ $(dscl . list /Users) =~ "admin.arsenal" ]]; then
+if [[ $(dscl . list /Users) =~ admin.arsenal ]]; then
     echo "ADMIN ACCOUNT ALREADY CREATED...SKIPPING ACCOUNT CREATION..."; $sleep 1;
 else
     . /etc/rc.common
